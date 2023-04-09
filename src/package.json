@@ -1,0 +1,6 @@
+{
+  "name": "@app",
+  "devDependencies": {
+    "@types/shallowequal": "^1.1.1"
+  }
+}
