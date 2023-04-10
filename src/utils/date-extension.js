@@ -1,13 +1,6 @@
 export default class DateExtension {
   // 日期 转 '2018-12-12'
-  static dateToStr = (Date: {
-    getFullYear: () => any;
-    getMonth: () => number;
-    getDate: () => any;
-    getHours: () => any;
-    getMinutes: () => any;
-    getSeconds: () => any;
-  }) => {
+  static dateToStr = (Date) => {
     var str = '-';
     var obj = {
       Y: Date.getFullYear(),
@@ -27,7 +20,7 @@ export default class DateExtension {
   };
 
   // 年/月/日 转 日期
-  static strToDate = (year: string, month: any, day: any) => {
+  static strToDate = (year, month, day) => {
     const date = new Date(
       year +
         '-' +
@@ -39,12 +32,12 @@ export default class DateExtension {
   };
 
   // 1月 转 01月
-  static supplement = (nn: string | number) => {
+  static supplement = (nn) => {
     return (nn = nn < 10 ? '0' + nn : nn);
   };
 
   // 日期 转 周描述
-  static dateToWeekStr = (date: Date) => {
+  static dateToWeekStr = (date) => {
     const week = DateExtension.getWeek(date);
     const year = date.getFullYear();
 
@@ -65,7 +58,7 @@ export default class DateExtension {
   };
 
   // 日期 转 月描述
-  static dateToMonthStr = (year: string | number, month: number) => {
+  static dateToMonthStr = (year, month) => {
     const now = new Date();
     const nowYear = now.getFullYear();
     const nowMonth = now.getMonth() + 1;
@@ -84,7 +77,7 @@ export default class DateExtension {
   };
 
   // 日期 转 年描述
-  static dateToYearStr = (year: string | number) => {
+  static dateToYearStr = (year) => {
     const now = new Date();
     const last = DateExtension.dateAddYear(now, -1);
     if (now.getFullYear() == year) {
@@ -97,7 +90,7 @@ export default class DateExtension {
   };
 
   // 是否是当前年
-  static isYearNow = (year: number) => {
+  static isYearNow = (year) => {
     const date = new Date();
     if (date.getFullYear() == year) {
       return true;
@@ -106,7 +99,7 @@ export default class DateExtension {
   };
 
   // 是否是当前月
-  static isMonthNow = (year: number, month: number) => {
+  static isMonthNow = (year, month) => {
     const date = new Date();
     if (date.getFullYear() == year && date.getMonth() + 1 == month) {
       return true;
@@ -115,7 +108,7 @@ export default class DateExtension {
   };
 
   // 是否是当前周
-  static isWeekNow = (date: Date) => {
+  static isWeekNow = (date) => {
     const now = new Date();
     const nowWeek = DateExtension.getWeek(now);
     const week = DateExtension.getWeek(date);
@@ -126,10 +119,10 @@ export default class DateExtension {
   };
 
   // 日期在当年的第几周
-  static getWeek = (dt: Date) => {
+  static getWeek = (dt) => {
     dt = DateExtension.dateAddDay(dt, 0);
-    let d1: number | any = new Date(dt);
-    let d2: number | any = new Date(dt);
+    let d1 = new Date(dt);
+    let d2 = new Date(dt);
     d2.setMonth(0);
     d2.setDate(1);
     let rq = d1 - d2;
@@ -140,8 +133,8 @@ export default class DateExtension {
 
   // 两个日期 间隔周数
   static compareWeek = (
-    date1: {getDay: () => number},
-    date2: {getDay: () => number},
+    date1,
+    date2,
   ) => {
     var day = DateExtension.datedifference(date1, date2);
     if (date1.getDay() != 1) {
@@ -155,7 +148,7 @@ export default class DateExtension {
   };
 
   // 两个日期 天数差
-  static datedifference = (sDate1: any, sDate2: any) => {
+  static datedifference = (sDate1, sDate2) => {
     var dateSpan, iDays;
     sDate1 = Date.parse(sDate1);
     sDate2 = Date.parse(sDate2);
@@ -166,7 +159,7 @@ export default class DateExtension {
   };
 
   // 日期 转 星期
-  static week = (date: Date) => {
+  static week = (date) => {
     var a = new Array('日', '一', '二', '三', '四', '五', '六');
     var week = date.getDay();
     var str = '星期' + a[week];
@@ -174,7 +167,7 @@ export default class DateExtension {
   };
 
   // 是否是今天
-  static isToday = (date: Date) => {
+  static isToday = (date) => {
     const now = new Date();
     if (
       date.getFullYear() == now.getFullYear() &&
@@ -187,28 +180,28 @@ export default class DateExtension {
   };
 
   // 日期加一天
-  static dateAddDay(dateTime: Date, day: number) {
+  static dateAddDay(dateTime, day) {
     var date = new Date(dateTime);
     date.setDate(dateTime.getDate() + day);
     return date;
   }
 
   // 日期加一月
-  static dateAddMonth(dateTime: Date, month: number) {
+  static dateAddMonth(dateTime, month) {
     var date = new Date(dateTime);
     date.setMonth(dateTime.getMonth() + month);
     return date;
   }
 
   // 日期加一年
-  static dateAddYear(dateTime: Date, year: number) {
+  static dateAddYear(dateTime, year) {
     var date = new Date(dateTime);
     date.setFullYear(dateTime.getFullYear() + year);
     return date;
   }
 
   // 2019-02周 获取周信息 {year: 2019, week: 2}
-  static weekToStr = (str: string) => {
+  static weekToStr = (str) => {
     if (str === '本周') {
       const date = new Date();
       return {
@@ -233,14 +226,14 @@ export default class DateExtension {
   };
 
   // 2019-02周 获取日期 通过 {year: 年份, week: 周}
-  static weekToDate = (year: number, week: number) => {
+  static weekToDate = (year, week) => {
     var date = new Date(year, 0, 1);
     date = DateExtension.dateAddDay(date, week * 7 - 1);
     return date;
   };
 
   // 2019-02月 获取月信息  {year: 2019, month: 2}
-  static monthToStr = (str: string) => {
+  static monthToStr = (str) => {
     if (str === '本月') {
       const date = new Date();
       const month = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -268,7 +261,7 @@ export default class DateExtension {
   };
 
   // 2019年 获取年信息   {year: 2019}
-  static yearToStr = (str: string) => {
+  static yearToStr = (str) => {
     if (str === '今年') {
       const date = new Date();
       return {year: date.getFullYear(), count: 12};

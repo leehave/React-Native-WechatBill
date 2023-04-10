@@ -16,28 +16,28 @@ import { ButtonPropsType } from './props-type'
 // tslint:disable:no-empty
 import React from 'react'
 
-export interface ButtonProps
-  extends ButtonPropsType,
-    WithThemeStyles<ButtonStyles>,
-    TouchableHighlightProps {
-  activeStyle?: StyleProp<ViewStyle>
-  children?: React.ReactNode
-}
+// export interface ButtonProps
+//   extends ButtonPropsType,
+//     WithThemeStyles<ButtonStyles>,
+//     TouchableHighlightProps {
+//   activeStyle?: StyleProp<ViewStyle>
+//   children?: React.ReactNode
+// }
 
-export default class Button extends React.Component<ButtonProps, any> {
+export default class Button extends React.Component {
   static defaultProps = {
     pressIn: false,
     disabled: false,
     loading: false,
 
-    onPress: (_?: any) => {},
-    onPressIn: (_?: any) => {},
-    onPressOut: (_?: any) => {},
-    onShowUnderlay: (_?: any) => {},
-    onHideUnderlay: (_?: any) => {},
+    onPress: (_) => {},
+    onPressIn: (_) => {},
+    onPressOut: (_) => {},
+    onShowUnderlay: (_) => {},
+    onHideUnderlay: (_) => {},
   }
 
-  constructor(props: ButtonProps) {
+  constructor(props) {
     super(props)
     this.state = {
       pressIn: false,
@@ -45,13 +45,13 @@ export default class Button extends React.Component<ButtonProps, any> {
     }
   }
 
-  onPressIn = (event: GestureResponderEvent) => {
+  onPressIn = (event) => {
     this.setState({ pressIn: true })
     if (this.props.onPressIn) {
       this.props.onPressIn(event)
     }
   }
-  onPressOut = (event: GestureResponderEvent) => {
+  onPressOut = (event) => {
     this.setState({ pressIn: false })
     if (this.props.onPressOut) {
       this.props.onPressOut(event)
@@ -106,7 +106,7 @@ export default class Button extends React.Component<ButtonProps, any> {
           const underlayColor = (
             StyleSheet.flatten(
               activeStyle ? activeStyle : _styles[`${type}Highlight`],
-            ) as any
+            )
           ).backgroundColor
 
           const indicatorColor = (
@@ -114,7 +114,7 @@ export default class Button extends React.Component<ButtonProps, any> {
               this.state.pressIn
                 ? _styles[`${type}HighlightText`]
                 : _styles[`${type}RawText`],
-            ) as any
+            )
           ).color
 
           return (

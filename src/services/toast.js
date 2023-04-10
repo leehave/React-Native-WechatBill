@@ -8,7 +8,7 @@ import Toast, { ToastOptions } from 'react-native-root-toast'
 
 import fonts from '@app/style/fonts'
 
-export const showToast = (message: string, options?: ToastOptions): void => {
+export const showToast = (message, options) => {
   Toast.show(
     message,
     Object.assign({

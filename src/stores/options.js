@@ -5,18 +5,14 @@ import { STORAGE } from '@app/constants/storage'
 import { boundMethod } from 'autobind-decorator'
 import storage from '@app/services/storage'
 
-export interface IOptionStore {
-  darkTheme: boolean
-}
-
 class OptionStore {
 
   constructor() {
     this.resetStore()
   }
-
+  
   // @observable.ref language: TLanguage = LANGUAGES.ZH
-  @observable.ref darkTheme: boolean = isDarkSystemTheme
+  @observable.ref darkTheme = isDarkSystemTheme
 
   // @computed get isEnLang() {
   //   return this.language === LANGUAGES.EN
@@ -35,7 +31,7 @@ class OptionStore {
   // }
 
   @action.bound
-  updateDarkTheme(darkTheme: boolean) {
+  updateDarkTheme(darkTheme) {
     this.darkTheme = darkTheme
     storage.set(STORAGE.LOCAL_DARK_THEME, darkTheme)
     updateTheme(darkTheme)
@@ -60,8 +56,8 @@ class OptionStore {
   //     })
   // }
 
-  private initDarkTheme() {
-    storage.get<boolean>(STORAGE.LOCAL_DARK_THEME).then(darkTheme => {
+  initDarkTheme() {
+    storage.get(STORAGE.LOCAL_DARK_THEME).then(darkTheme => {
       if (darkTheme != null) {
         console.log('Init app darkTheme:', darkTheme)
         this.updateDarkTheme(darkTheme)

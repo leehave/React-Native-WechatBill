@@ -7,38 +7,38 @@
 import { Appearance } from 'react-native-appearance'
 import { observable } from 'mobx'
 
-export enum Themes {
-  Default = 'default',
-  Dark = 'Dark'
-}
+// export enum Themes {
+//   Default = 'default',
+//   Dark = 'Dark'
+// }
 
-type ThemeKey =
-  | 'primary'// 主题色
-  | 'secondary' // 次要主题色
+// type ThemeKey =
+//   | 'primary'// 主题色
+//   | 'secondary' // 次要主题色
 
-  | 'primary' // 主题色
-  | 'secondary' // 次要主题色
+//   | 'primary' // 主题色
+//   | 'secondary' // 次要主题色
 
-  | 'accent' // 强调色
-  | 'red' // 红色，错误色
-  | 'yellow' // 黄色，警告色
-  | 'grey' // 银灰色
-  | 'inverse' // 反色
+//   | 'accent' // 强调色
+//   | 'red' // 红色，错误色
+//   | 'yellow' // 黄色，警告色
+//   | 'grey' // 银灰色
+//   | 'inverse' // 反色
 
-  | 'border' // 边框色
-  | 'background' // 全局背景色
-  | 'cardBackground' // 模块背景色
+//   | 'border' // 边框色
+//   | 'background' // 全局背景色
+//   | 'cardBackground' // 模块背景色
 
-  | 'textDefault' // 默认文本
-  | 'textSecondary' // 次要文本
-  | 'textMuted' // 禁用文本
+//   | 'textDefault' // 默认文本
+//   | 'textSecondary' // 次要文本
+//   | 'textMuted' // 禁用文本
 
-  | 'textTitle' // 标题文本
-  | 'textLink' // 链接文本
+//   | 'textTitle' // 标题文本
+//   | 'textLink' // 链接文本
 
-type Theme = Record<ThemeKey, string>
+// type Theme = Record<ThemeKey, string>
 
-export const Default: Theme = {
+export const Default = {
   primary: '#0d86ff',
   secondary: '#262626',
   accent: '#4caf50',
@@ -58,7 +58,7 @@ export const Default: Theme = {
   textLink: '#000'
 }
 
-export const Dark: Theme = {
+export const Dark = {
   primary: '#0d86ff',
   secondary: '#262626',
   accent: '#4caf50',
@@ -79,12 +79,12 @@ export const Dark: Theme = {
 }
 
 export const isDarkSystemTheme = Appearance.getColorScheme() === 'dark'
-const colors = observable<Theme>(isDarkSystemTheme ? Dark : Default)
+const colors = observable(isDarkSystemTheme ? Dark : Default)
 
 export default colors
-export const updateTheme = (darkTheme: boolean) => {
+export const updateTheme = (darkTheme) => {
   Object.keys(Default).forEach(key => {
-    const themeKty = (key as keyof Theme)
+    const themeKty = key
     colors[themeKty] = darkTheme ? Dark[themeKty] : Default[themeKty]
   })
 }

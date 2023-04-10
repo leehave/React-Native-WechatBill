@@ -4,4 +4,4 @@
  * @module app/utils/transform
  */
 
-export type ValueOf<T extends object> = T[keyof T]
+export {}
