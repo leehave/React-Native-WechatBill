@@ -6,7 +6,7 @@
 
 import { Platform } from 'react-native'
 
-export const getLineHeight = (fontSize: number): number => {
+export const getLineHeight = (fontSize) => {
   const multiplier = (fontSize > 20) ? 0.1 : 0.33
   return parseInt(String(fontSize + (fontSize * multiplier)), 10)
 }

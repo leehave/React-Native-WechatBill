@@ -3,38 +3,11 @@
  * @file 日期util
  * @module app/utils/date
  */
-interface DayObject {
-  value: number;
-  string: string;
-  future: boolean;
-}
-interface MonthObject {
-  year: number;
-  month: number;
-  days: DayObject[];
-}
-interface MonthOfWeekObject {
-  year: number;
-  month: number;
-  week: { start: string, end: string, flag: string, amount: string, future: boolean }[]
-}
-interface MonthInfo {
-  value: number;
-  flag: string;
-  amount: string;
-  future: boolean;
-}
-
-interface YearInfo {
-  year: number;
-  month: MonthInfo[];
-}
-
-const daysInLeapYearMonth: number[] = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const daysInNormalYearMonth: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const daysInLeapYearMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const daysInNormalYearMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 // 获取当前日期的字符串，例如 20221231
-function getCurrentDateString():string {
+function getCurrentDateString() {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1;
@@ -43,21 +16,21 @@ function getCurrentDateString():string {
 }
 
 // 获取某个月份在某一年中的天数
-function getDaysInMonth(month: number, year: number): number {
+function getDaysInMonth(month, year) {
   return (year % 4 === 0) ? daysInLeapYearMonth[month] : daysInNormalYearMonth[month];
 }
 
 // 获取某个月份在某一年中的第一天是星期几
-function getDayOfWeekInMonth(month: number, year: number): number {
+function getDayOfWeekInMonth(month, year) {
   return new Date(year, month, 1).getDay();
 }
 
 // 为某个月份的月历添加数据
-function appendDaysOfMonth(month: number, year: number, calendar: MonthObject[]):void {
-  const dayOfWeek: number = getDayOfWeekInMonth(month, year);
-  const daysInMonth: number = getDaysInMonth(month, year);
+function appendDaysOfMonth(month, year, calendar) {
+  const dayOfWeek = getDayOfWeekInMonth(month, year);
+  const daysInMonth = getDaysInMonth(month, year);
 
-  const monthObject: MonthObject = {
+  const monthObject = {
     year: year,
     month: month + 1,
     days: []
@@ -83,11 +56,11 @@ function appendDaysOfMonth(month: number, year: number, calendar: MonthObject[])
 }
 
 // 为某个月份的周日历添加数据
-function appendWeeksOfMonth(month: number, year: number, calendar: MonthOfWeekObject[]): void {
+function appendWeeksOfMonth(month, year, calendar) {
   const dayOfWeek = getDayOfWeekInMonth(month, year);
   const daysInMonth = getDaysInMonth(month, year);
 
-  const monthObject: MonthOfWeekObject = {
+  const monthObject = {
     year: year,
     month: month + 1,
     week: []
@@ -126,7 +99,7 @@ function appendWeeksOfMonth(month: number, year: number, calendar: MonthOfWeekOb
   calendar.push(monthObject);
 }
 
-function addMonthToYear(month: number, year: number, data: YearInfo[]): void {
+function addMonthToYear(month, year, data) {
   const monthFlag = `${year}${month < 9 ? '0' : ''}${month + 1}`;
 
   // 遍历月历，查找是否有该年份的数据
@@ -139,7 +112,7 @@ function addMonthToYear(month: number, year: number, data: YearInfo[]): void {
       future: !(new Date().getMonth() + 1 === month + 1 && new Date().getFullYear() === year) && getCurrentDateString() <= `${monthFlag}31`,
     });
   } else { // 如果没有找到该年份的数据，则新建数据并加入月历
-    const newYearInfo: YearInfo = {
+    const newYearInfo = {
       year,
       month: [
         {
@@ -156,7 +129,7 @@ function addMonthToYear(month: number, year: number, data: YearInfo[]): void {
 
 
 // // 生成给定日期范围内的月、周、日列表
-function generateDateList(startDateYear: string, startDateMonthIndex: string, endDateYear: string, endDateMonthIndex: string, viewType: string) {
+function generateDateList(startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex, viewType) {
   if (new Date(`${startDateYear}/${startDateMonthIndex}/1`) > new Date(`${endDateYear}/${endDateMonthIndex}/1`)) {
     throw new Error("start Date must less than end Date");
   }
@@ -166,7 +139,7 @@ function generateDateList(startDateYear: string, startDateMonthIndex: string, en
   const endDateYearNumber = parseInt(endDateYear);
   const endDateMonthNumber = parseInt(endDateMonthIndex) - 1;
 
-  const dateList: any[] = [];
+  const dateList = [];
 
   // 遍历月份
   for (let year = startDateYearNumber, month = startDateMonthNumber;
@@ -184,13 +157,13 @@ function generateDateList(startDateYear: string, startDateMonthIndex: string, en
   return dateList;
 }
 export default {
-  getDayList: function (startDateYear: string, startDateMonthIndex: string, endDateYear: string, endDateMonthIndex: string) {
+  getDayList: function (startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex) {
     generateDateList(startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex, "day");
   },
-  getWeekList: function (startDateYear: string, startDateMonthIndex: string, endDateYear: string, endDateMonthIndex: string) {
+  getWeekList: function (startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex) {
     return generateDateList(startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex, "week");
   },
-  getMonthList: function (startDateYear: string, startDateMonthIndex: string, endDateYear: string, endDateMonthIndex: string) {
+  getMonthList: function (startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex) {
     return generateDateList(startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex, "month");
   },
 }

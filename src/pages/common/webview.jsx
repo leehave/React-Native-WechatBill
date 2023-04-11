@@ -26,37 +26,37 @@ const ActionSheet = require('react-native-actionsheet').default
 
 class WebviewStore {
 
-  @observable url: string = ''
-  @observable title: string | null = null
-  @observable isLoading: boolean = false
+  @observable url = ''
+  @observable title = null
+  @observable isLoading = false
 
-  public webViewElement: React.Ref<WebView> = React.createRef()
-  public actionSheetElement: React.MutableRefObject<any> = React.createRef()
+  webViewElement = React.createRef()
+  actionSheetElement = React.createRef()
 
-  @action.bound updateUrl(url: string) {
+  @action.bound updateUrl(url) {
     this.url = url
   }
 
-  @action.bound updateTitle(title: string) {
+  @action.bound updateTitle(title) {
     this.title = title
   }
 
-  @action.bound updateLoadingState(loading: boolean) {
+  @action.bound updateLoadingState(loading) {
     this.isLoading = loading
   }
 }
 
 export const webViewStore = new WebviewStore()
-export interface IWebViewProps extends IPageProps {}
+// export interface IWebViewProps extends IPageProps {}
 
-@observer export class WebViewPage extends Component<IWebViewProps> {
+@observer export class WebViewPage extends Component {
 
-  constructor(props: IWebViewProps) {
+  constructor(props) {
     super(props)
     this.initUrl()
   }
 
-  static getPageScreenOptions = ({ navigation, route }: NavigationProps) => {
+  static getPageScreenOptions = ({ navigation, route }) => {
     const title = route?.params?.title || '...'
 
     return {
@@ -89,13 +89,13 @@ export interface IWebViewProps extends IPageProps {}
   }
 
   @computed
-  private get actionSheetMenus() {
+  get actionSheetMenus() {
     return [
       {
         title: i18n.t(LANGUAGE_KEYS.OPEN_BY_BROWER),
         handle: () => Linking
           .openURL(webViewStore.url)
-          .catch((error: any) => console.warn('Open url failed:', error))
+          .catch((error) => console.warn('Open url failed:', error))
       },
       {
         title: i18n.t(LANGUAGE_KEYS.COPY_URL),
@@ -105,32 +105,32 @@ export interface IWebViewProps extends IPageProps {}
   }
 
   @computed
-  private get actionSheetMenuNames() {
+  get actionSheetMenuNames() {
     return this.actionSheetMenus.map(menu => menu.title)
   }
 
-  private initUrl() {
+  initUrl() {
     const url = this.props.route?.params?.url
     url && this.updateUrl(url)
   }
 
-  private updateTitle(title: string) {
+  updateTitle(title) {
     webViewStore.updateTitle(title)
     this.props.navigation.setParams({ title })
   }
 
-  private updateUrl(url: string) {
+  updateUrl(url) {
     webViewStore.updateUrl(url)
   }
 
   @boundMethod
-  private handleWebViewStateChange(state: any) {
+  handleWebViewStateChange(state) {
     this.updateUrl(state.url)
     this.updateTitle(state.title)
   }
 
   @boundMethod
-  private handleActionSheetPress(index: number) {
+  handleActionSheetPress(index) {
     const menu = this.actionSheetMenus[index]
     menu && menu.handle && menu.handle()
   }

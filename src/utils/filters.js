@@ -5,7 +5,7 @@
  */
 
 // 时间转换
-export const dateToYMD = (dateString: string): string => {
+export const dateToYMD = (dateString) => {
   if (!dateString) {
     return dateString
   }
@@ -18,6 +18,6 @@ export const dateToYMD = (dateString: string): string => {
 }
 
 // 文本限制
-export const stringLimit = (description: string, limit: number = 80): string => {
+export const stringLimit = (description, limit = 80) => {
   return description.length < limit ? description : `${description.slice(0, limit)}...`
 }

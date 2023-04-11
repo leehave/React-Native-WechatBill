@@ -30,7 +30,7 @@ const mixins = StyleSheet.create({
   }
 })
 
-export const getHeaderButtonStyle = (size?: number | void | null): { size: number, style: ViewStyle } => {
+export const getHeaderButtonStyle = (size) => {
   return {
     size: size != null ? size : 16,
     style: mixins.headerButton
