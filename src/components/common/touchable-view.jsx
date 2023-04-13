@@ -11,7 +11,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import sizes from '@app/style/sizes'
 
-export const TouchableView = observer((props: TouchableOpacityProps & IChildrenProps): JSX.Element => {
+export const TouchableView = observer((props) => {
   return (
     <TouchableOpacity
       activeOpacity={sizes.touchOpacity}

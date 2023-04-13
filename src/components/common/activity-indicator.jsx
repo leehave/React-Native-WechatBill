@@ -15,16 +15,9 @@ import fonts from '@app/style/fonts'
 import mixins from '@app/style/mixins'
 import { observer } from 'mobx-react'
 
-export interface IAutoActivityIndicatorProps {
-  size?: number | 'small' | 'large'
-  style?: ViewStyle
-  text?: string
-  textStyle?: TextStyle
-}
+export const AutoActivityIndicator = observer((props) => {
 
-export const AutoActivityIndicator = observer((props: IAutoActivityIndicatorProps): JSX.Element => {
-
-  const getIndicator = (style?: ViewStyle | null) => (
+  const getIndicator = (style) => (
     <ActivityIndicator
       animating={true}
       style={style}

@@ -3,16 +3,15 @@ import {Text, TouchableHighlight, View} from 'react-native';
 import {WithTheme, WithThemeStyles} from '../style';
 
 import Calculation from './calculation';
-import {KeyBoardButtonPropsType} from './props-type';
 import KeyboardButtonStyle from './style/index';
 
-export default class KeyBoardButton extends React.Component<KeyBoardButtonPropsType> {
+export default class KeyBoardButton extends React.Component {
   static defaultProps = {
-    onPress: (_?: any) => {},
+    onPress: (_) => {},
     index: 0,
     title: '今日',
   };
-  constructor(props: KeyBoardButtonPropsType) {
+  constructor(props) {
     super(props);
   }
   // 初始化
@@ -24,7 +23,7 @@ export default class KeyBoardButton extends React.Component<KeyBoardButtonPropsT
         {_styles => {
           return (
             <TouchableHighlight
-              onPress={() => onPress!(index)}
+              onPress={() => onPress(index)}
               style={[
                 _styles.container,
                 {
@@ -54,7 +53,7 @@ export default class KeyBoardButton extends React.Component<KeyBoardButtonPropsT
   }
 
   // 内容
-  getButtonContent = (index: number, date: any) => {
+  getButtonContent = (index, date) => {
     if (index == 0) {
       return '7';
     } else if (index == 1) {

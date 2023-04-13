@@ -5,19 +5,10 @@ import {
   ViewStyle,
 } from 'react-native'
 
-import { FlexPropsType } from './props-type'
 import React from 'react'
 
-export interface FlexProps extends FlexPropsType {
-  onPress?: () => void
-  onLongPress?: () => void
-  onPressIn?: () => void
-  onPressOut?: () => void
-  style?: StyleProp<ViewStyle>
-}
-
-export default class Flex extends React.Component<FlexProps, any> {
-  static Item: any
+export default class Flex extends React.Component {
+  static Item
 
   static defaultProps = {
     direction: 'row',
@@ -52,7 +43,7 @@ export default class Flex extends React.Component<FlexProps, any> {
 
       return tempTxt
     })
-    const flexStyle: any = {
+    const flexStyle = {
       flexDirection: direction,
       flexWrap: wrap,
       justifyContent: transferConstStyle[0],

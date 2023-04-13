@@ -11,20 +11,15 @@ import colors from '@app/style/colors'
 import { glyphs } from './iconfont.json'
 import { observer } from 'mobx-react'
 
-const iconMap: { [key: string]: string } = glyphs.reduce((map, icon) => {
+const iconMap = glyphs.reduce((map, icon) => {
   return {
     ...map,
     [icon.font_class]: String.fromCharCode(parseInt(icon.unicode, 16))
   }
 }, {})
 
-interface IconfontProps extends TextProps {
-  name: string
-  color?: string
-  size?: number
-}
 
-export const Iconfont = observer((props: IconfontProps): JSX.Element => {
+export const Iconfont = observer((props) => {
   return (
     <RNText
       {...props}

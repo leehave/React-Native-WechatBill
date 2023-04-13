@@ -16,41 +16,16 @@ import { InputItemPropsType } from './props-type'
 import { Omit } from 'utility-types'
 import React from 'react'
 
-/**
- * React Native TextInput Props except these props
- */
-export type TextInputProps = Omit<
-  TextInputProperties,
-  'onChange' | 'onFocus' | 'onBlur'
->
-
-export interface InputItemProps
-  extends InputItemPropsType,
-    TextInputProps,
-    WithThemeStyles<InputItemStyle> {
-  last?: boolean
-  onExtraClick?: (event: GestureResponderEvent) => void
-  onErrorClick?: (event: GestureResponderEvent) => void
-  disabled?: boolean
-}
-
-interface InputItemState {
-  focus: boolean
-}
-
 const noop = () => {}
 
-function normalizeValue(value?: string) {
+function normalizeValue(value) {
   if (typeof value === 'undefined' || value === null) {
     return ''
   }
   return value
 }
 
-export default class InputItem extends React.Component<
-  InputItemProps,
-  InputItemState
-> {
+export default class InputItem extends React.Component{
   static defaultProps = {
     type: 'text',
     editable: true,
@@ -68,14 +43,14 @@ export default class InputItem extends React.Component<
     last: false,
   }
 
-  state: InputItemState = {
+  state = {
     focus: false,
   }
-  inputRef: Input | null | undefined
+  inputRef
 
-  onChange = (text: string) => {
+  onChange = (text) => {
     const { onChange, type } = this.props
-    const maxLength = this.props.maxLength as number
+    const maxLength = this.props.maxLength
     switch (type) {
       case 'bankCard':
         text = text.replace(/\D/g, '')
@@ -152,7 +127,7 @@ export default class InputItem extends React.Component<
     } = this.props
     const { focus } = this.state
     const { value, defaultValue, style } = restProps
-    let valueProps: any
+    let valueProps
     if ('value' in this.props) {
       valueProps = {
         value: normalizeValue(value),
@@ -171,13 +146,13 @@ export default class InputItem extends React.Component<
           }
 
           const textStyle = {
-            width: theme.font_size_heading * (labelNumber as number) * 1.05,
+            width: theme.font_size_heading * (labelNumber) * 1.05,
           }
 
           const extraStyle = {
             width:
-              typeof extra === 'string' && (extra as string).length > 0
-                ? (extra as string).length * theme.font_size_heading
+              typeof extra === 'string' && (extra).length > 0
+                ? (extra).length * theme.font_size_heading
                 : 0,
           }
 
@@ -196,7 +171,7 @@ export default class InputItem extends React.Component<
             'web-search',
           ]
 
-          let keyboardType: any = 'default'
+          let keyboardType = 'default'
 
           if (type === 'number') {
             keyboardType = 'numeric'

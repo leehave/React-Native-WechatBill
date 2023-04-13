@@ -7,17 +7,8 @@ import KeyboardFieldStyle, {KeybodrdFieldStyle} from './style/field';
 import React, {Component} from 'react';
 import {WithTheme, WithThemeStyles} from '../style';
 
-import {KeyBoardFieldPropsType} from './props-type';
-
-export interface KeybordFiledProps extends KeyBoardFieldPropsType {
-  visible?: boolean;
-}
-export interface KeyBoardFiledPropsType {
-  getText: () => void,
-  setText: (text: string) => void
-}
-export default class KeyBoardFiled extends React.Component<KeyBoardFieldPropsType, any> {
-  constructor(props: KeyBoardFieldPropsType) {
+export default class KeyBoardFiled extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       text: '',
@@ -27,7 +18,7 @@ export default class KeyBoardFiled extends React.Component<KeyBoardFieldPropsTyp
     return this.state.text;
   };
 
-  setText = (text: any) => {
+  setText = (text) => {
     this.setState({
       text: text,
     });

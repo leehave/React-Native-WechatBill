@@ -10,14 +10,8 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
 import { Theme } from '../../style'
 
-export interface KeybodrdFieldStyle {
-  container: ViewStyle
-  input: TextStyle
-  name: TextStyle
-  money: TextStyle
-}
-export default (theme: Theme) =>
-  StyleSheet.create<KeybodrdFieldStyle>({
+export default (theme) =>
+  StyleSheet.create({
     container: {
       flexDirection: 'row',
       width: SCREEN_WIDTH,

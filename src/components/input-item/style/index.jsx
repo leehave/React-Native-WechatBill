@@ -1,18 +1,9 @@
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
 import { Theme } from '../../style'
-export interface InputItemStyle {
-  container: ViewStyle
-  text: TextStyle
-  input: TextStyle
-  inputDisabled: TextStyle
-  inputErrorColor: TextStyle
-  clear: ViewStyle
-  extra: TextStyle
-  errorIcon: ViewStyle
-}
-export default (theme: Theme) =>
-  StyleSheet.create<InputItemStyle>({
+
+export default (theme) =>
+  StyleSheet.create({
     container: {
       height: theme.list_item_height + theme.border_width_sm,
       borderBottomWidth: StyleSheet.hairlineWidth,

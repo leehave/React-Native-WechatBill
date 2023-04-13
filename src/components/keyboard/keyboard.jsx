@@ -24,12 +24,12 @@ import Field from './field'
 import {KeyBoardFiledPropsType} from './field';
 import KeybodrdStyles from './style/keyboard';
 
-export default class KeyBoardButton extends React.Component<any, any> {
-  keyboardDidShowListener: any;
-  keyboardDidHideListener: any;
-  field = React.createRef<KeyBoardFiledPropsType>();
+export default class KeyBoardButton extends React.Component {
+  keyboardDidShowListener;
+  keyboardDidHideListener;
+  field = React.createRef();
   // picker: any;
-  constructor(props: any) {
+  constructor(props) {
     super(props);
     this.state = {
       keyboardAnim: new Animated.Value(0),
@@ -63,7 +63,7 @@ export default class KeyBoardButton extends React.Component<any, any> {
   }
 
   // 键盘显示
-  _keyboardDidShow = (e: any) => {
+  _keyboardDidShow = (e) => {
     const keyboardH = e.endCoordinates.height;
     const inputKeyH = (SCREEN_HEIGHT - NAVIGATION_HEIGHT) / 2;
     const inputH = 120;
@@ -77,7 +77,7 @@ export default class KeyBoardButton extends React.Component<any, any> {
     }).start(result => {});
   };
   // 键盘隐藏
-  _keyboardDidHide = (e: any) => {
+  _keyboardDidHide = (e) => {
     Animated.timing(this.state.inputAnim, {
       duration: 200,
       easing: Easing.elastic(0),
@@ -86,7 +86,7 @@ export default class KeyBoardButton extends React.Component<any, any> {
     }).start(result => {});
   };
   // 点击Item
-  _onItemPress = (index: number) => {
+  _onItemPress = (index) => {
     // 点击时间
     if (Calculation.isDate(index)) {
       // this.picker.show();
@@ -113,7 +113,7 @@ export default class KeyBoardButton extends React.Component<any, any> {
     }
   };
   // 动画
-  _switchAnimation(isShow: boolean) {
+  _switchAnimation(isShow) {
     Animated.timing(this.state.keyboardAnim, {
       duration: 400,
       easing: Easing.elastic(0),
@@ -123,7 +123,7 @@ export default class KeyBoardButton extends React.Component<any, any> {
   }
 
   // 确认
-  _onConfirm = (year: number, month: number, day: number | undefined) => {
+  _onConfirm = (year, month, day) => {
     const date = new Date(year, month - 1, day);
     if (!DateExtension.isToday(date)) {
       const dateStr = DateExtension.dateToStr(date);
@@ -135,7 +135,7 @@ export default class KeyBoardButton extends React.Component<any, any> {
 
   //============================ 界面 ============================//
   // 按钮
-  subitem = (_styles: any) => {
+  subitem = (_styles) => {
     var button = [];
     for (var i = 0; i < 4; i++) {
       var subbutton = [];
@@ -172,7 +172,7 @@ export default class KeyBoardButton extends React.Component<any, any> {
             <Animated.View style={{height: this.state.keyboardAnim}}>
               <Animated.View style={_styles.container}>
                 <Field
-                  ref={this.field as any}
+                  ref={this.field}
                   money={this.state.money}
                   styles={{top: this.state.inputAnim}}
                 />

@@ -2,14 +2,8 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
 import { Theme } from '../../style'
 
-export interface KeybodrdStyle {
-  container: ViewStyle
-  view: ViewStyle
-  name: TextStyle
-}
-
-export default (theme: Theme) =>
-  StyleSheet.create<KeybodrdStyle>({
+export default (theme) =>
+  StyleSheet.create({
     container: {
       flex: 1,
       borderBottomWidth: 1,

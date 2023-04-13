@@ -11,25 +11,17 @@ import { action, observable } from 'mobx'
 import { boundMethod } from 'autobind-decorator'
 import { observer } from 'mobx-react'
 
-export interface IDoubleClickProps {
-  onDoubleClick(): void
-  onPress?(): void
-  style?: StyleProp<ViewStyle>
-  delay?: number,
-  children?: ReactNode
-}
+@observer export class DoubleClick extends Component {
 
-@observer export class DoubleClick extends Component<IDoubleClickProps> {
-
-  @observable.ref private lastPress: number = 0
+  @observable.ref lastPress = 0
 
   @action
-  private updateLastPress(lastPress: number) {
+  updateLastPress(lastPress) {
     this.lastPress = lastPress
   }
 
   @boundMethod
-  private onPress() {
+  onPress() {
     const delta = new Date().getTime() - this.lastPress
     const delay = this.props.delay || 200
     const isDoubleClick = delta < delay

@@ -12,7 +12,7 @@ import colors from '@app/style/colors'
 import fonts from '@app/style/fonts'
 import { observer } from 'mobx-react'
 
-export const Text = observer((props: TextProps & IChildrenProps): JSX.Element => {
+export const Text = observer((props) => {
   return (
     <RNText
       {...props}

@@ -17,13 +17,7 @@ import i18n from '@app/services/i18n'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 
-interface I18nTitleProps extends TextProps {
-  size?: number
-  color?: string
-  i18nKey?: LANGUAGE_KEYS
-}
-
-export const AutoI18nTitle = observer((props: I18nTitleProps): JSX.Element => {
+export const AutoI18nTitle = observer((props) => {
   const { i18nKey, style } = props
   const styles = [
     {
@@ -37,12 +31,8 @@ export const AutoI18nTitle = observer((props: I18nTitleProps): JSX.Element => {
   )
 })
 
-interface IHeaderTitleProps extends I18nTitleProps {
-  title?: string
-  onDoubleClick?(): void
-}
 
-export const CustomHeaderTitle = observer((props: IHeaderTitleProps): JSX.Element => {
+export const CustomHeaderTitle = observer((props) => {
   const { title, i18nKey, style, onDoubleClick, ...i18nProps } = props
   const styles = [style, headerStyles.styles.title]
 

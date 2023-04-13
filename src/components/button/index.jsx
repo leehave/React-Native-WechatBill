@@ -12,8 +12,6 @@ import {
 import { WithTheme, WithThemeStyles } from '../style'
 import buttonStyles, { ButtonStyles } from './style/index'
 
-import { ButtonPropsType } from './props-type'
-// tslint:disable:no-empty
 import React from 'react'
 
 // export interface ButtonProps

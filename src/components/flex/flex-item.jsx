@@ -5,19 +5,9 @@ import {
   ViewStyle,
 } from 'react-native'
 
-import { FlexItemPropsType } from './props-type'
 import React from 'react'
 
-export interface FlexItemProps extends FlexItemPropsType {
-  flex?: number
-  onPress?: () => void
-  onLongPress?: () => void
-  onPressIn?: () => void
-  onPressOut?: () => void
-  style?: StyleProp<ViewStyle>
-}
-
-export default class FlexItem extends React.Component<FlexItemProps, any> {
+export default class FlexItem extends React.Component {
   static defaultProps = {
     flex: 1,
   }

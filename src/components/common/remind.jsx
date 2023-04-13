@@ -11,13 +11,7 @@ import React from 'react'
 import colors from '@app/style/colors'
 import { observer } from 'mobx-react'
 
-interface IRemindProps {
-  size?: number
-  color?: string
-  style?: StyleProp<TextStyle>
-}
-
-export const Remind = observer((props: IRemindProps): JSX.Element => {
+export const Remind = observer((props) => {
   return (
     <Iconfont
       style={props.style}

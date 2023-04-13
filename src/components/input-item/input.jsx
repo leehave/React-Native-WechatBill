@@ -2,14 +2,10 @@ import { TextInput, TextInputProperties } from 'react-native'
 
 import React from 'react'
 
-export interface TextInputProps extends TextInputProperties {
-  focused?: boolean
-}
+class Input extends React.Component {
+  inputRef
 
-class Input extends React.Component<TextInputProps, any> {
-  inputRef: TextInput | null | undefined
-
-  constructor(props: TextInputProps) {
+  constructor(props) {
     super(props)
 
     // todos: remove focused in next major version.
@@ -18,7 +14,7 @@ class Input extends React.Component<TextInputProps, any> {
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: TextInputProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.focused !== this.state.focused) {
       this.setState({
         focused: nextProps.focused,
@@ -53,7 +49,7 @@ class Input extends React.Component<TextInputProps, any> {
   render() {
     return (
       <TextInput
-        ref={(el) => ((this.inputRef as any) = el)}
+        ref={(el) => ((this.inputRef) = el)}
         underlineColorAndroid="transparent"
         {...this.props}
       />

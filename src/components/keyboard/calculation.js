@@ -2,7 +2,7 @@
 export default class Calculation {
 
   // 获取字符串
-  static getMoneyString = (string: string, index: number) => {
+  static getMoneyString = (string, index) => {
     // 数字
     if (Calculation.isMath(index) && Calculation.isAllowMath(string)) {
       return Calculation.enterMath(string, index)
@@ -32,7 +32,7 @@ export default class Calculation {
 
 
   // 数字
-  static isMath = (index: number) => {
+  static isMath = (index) => {
     if (index == 0 || index == 1 || index == 2 ||
       index == 4 || index == 5 || index == 6 ||
       index == 8 || index == 9 || index == 10 ||
@@ -42,42 +42,42 @@ export default class Calculation {
     return false
   }
   // 点
-  static isPoint = (index:number) => {
+  static isPoint = (index) => {
     if (index == 12) {
       return true
     }
     return false
   }
   // 删除
-  static isRemove = (index: number) => {
+  static isRemove = (index) => {
     if (index == 14) {
       return true
     }
     return false
   }
   // 加减
-  static isAddLess = (index: number) => {
+  static isAddLess = (index) => {
     if (index == 7 || index == 11) {
       return true
     }
     return false
   }
   // 时间
-  static isDate = (index: number) => {
+  static isDate = (index) => {
     if (index == 3) {
       return true
     }
     return false
   }
   // 完成
-  static isComplete = (index: number) => {
+  static isComplete = (index) => {
     if (index == 15) {
       return true
     }
     return false
   }
   // 计算 
-  static isCalculation = (string: string) => {
+  static isCalculation = (string) => {
     if (string.length <= 1) {
       return true
     }
@@ -101,7 +101,7 @@ export default class Calculation {
 
 
   // 允许数字
-  static isAllowMath = (string: string) => {
+  static isAllowMath = (string) => {
     var num = string.lastIndexOf('.');
     // 没有小数点
     if (num == -1) {
@@ -121,7 +121,7 @@ export default class Calculation {
     }
   }
   // 允许点
-  static isAllowPoint = (string: string) => {
+  static isAllowPoint = (string) => {
     // 字符串为空
     if (string.length == 0) {
       return false
@@ -147,28 +147,28 @@ export default class Calculation {
     return true
   }
   // 允许删除
-  static isAllowRemove = (string: string | any[]) => {
+  static isAllowRemove = (string) => {
     if (string.length != 0) {
       return true
     }
     return false
   }
   // 允许加减
-  static isAllowAddLess = (string: string) => {
+  static isAllowAddLess = (string) => {
     return true
   }
   // 允许时间
-  static isAllowDate = (string: string) => {
+  static isAllowDate = (string) => {
     return true
   }
   // 允许完成
-  static isAllowComplete = (string: string) => {
+  static isAllowComplete = (string) => {
     return true
   }
 
 
   // 输入数字
-  static enterMath = (string: string, index: number) => {
+  static enterMath = (string, index) => {
     var math = Calculation.getButtonString(index, string)
     // 字符串只有一个0
     if (string === "0") {
@@ -179,11 +179,11 @@ export default class Calculation {
     }
   }
   // 输入点
-  static enterPoint = (string: string, index: number) => {
+  static enterPoint = (string, index) => {
     return string + "."
   }
   // 输入删除
-  static enterRemove = (string: string, index: number) => {
+  static enterRemove = (string, index) => {
     // 只有一位了还点删除
     if (string.length == 1) {
       return "0"
@@ -193,7 +193,7 @@ export default class Calculation {
     }
   }
   // 输入加减
-  static enterAddLess = (string: string, index: number) => {
+  static enterAddLess = (string, index) => {
     var str = Calculation.getButtonString(index, string)
     var last = string.charAt(string.length - 1)
     if (last == "+" || last == "-") {
@@ -203,7 +203,7 @@ export default class Calculation {
     }
   }
   // 输入完成
-  static enterComplete = (string: string, index: number) => {
+  static enterComplete = (string, index) => {
     if (string == "+" || string == "-") {
       return "0"
     }
@@ -217,7 +217,7 @@ export default class Calculation {
 
 
   // 更新完成按钮文本
-  static updateComplete = (string: string) => {
+  static updateComplete = (string) => {
     if (string.length <= 1) {
       return '完成'
     }
@@ -241,7 +241,7 @@ export default class Calculation {
 
 
   // 按钮内容
-  static getButtonString = (index: number, string: any, date?: undefined) => {
+  static getButtonString = (index, string, date) => {
     if (index == 0) {
       return '7'
     } else if (index == 1) {

@@ -15,14 +15,7 @@ import mixins from '@app/style/mixins'
 import { observer } from 'mobx-react'
 import sizes from '@app/style/sizes'
 
-export interface IImageViewerModalProps {
-  images: string[]
-  index?: number
-  visible: boolean
-  onClose(): void
-}
-
-export const ImageViewerModal = observer((props: IImageViewerModalProps): JSX.Element => {
+export const ImageViewerModal = observer((props) => {
   const images = props.images.map(uri => ({ uri }))
   const viewElement = (
     <ImageView
