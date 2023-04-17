@@ -5,6 +5,7 @@
  * @format
  */
 
+import { BottomTabNavigator, NormalStackScreen } from './src/navigation/tabbar'
 import {
   Colors,
   DebugInstructions,
@@ -22,7 +23,6 @@ import {
   useColorScheme,
 } from 'react-native';
 
-import { BottomTabNavigator } from './src/navigation/tabbar'
 import { NavigationContainer } from '@react-navigation/native'
 import React from 'react';
 
@@ -68,7 +68,8 @@ function App() {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <NavigationContainer>
-        <BottomTabNavigator></BottomTabNavigator>
+        <NormalStackScreen></NormalStackScreen>
+        {/* <BottomTabNavigator></BottomTabNavigator> */}
       </NavigationContainer>
     </SafeAreaView>
   );

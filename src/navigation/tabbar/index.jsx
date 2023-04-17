@@ -4,23 +4,41 @@ import React, { useState } from "react";
 
 import Charts from "../../pages/charts/index";
 import Home from "../../pages/home/index";
+import { IconManager } from '~/assets/json/iconManager'
 import Modal from "../../pages/modal/index";
+import None from "../../pages/common/None";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getPathDown } from "./curve";
 import { scale } from "react-native-size-scaling";
 
 const Tab = createBottomTabNavigator();
+const NormalStack = createNativeStackNavigator();
+export const NormalStackScreen = () => {
+  return (
+    <NormalStack.Navigator screenOptions={{ headerShown: false }}>
+      <NormalStack.Group>
+        <NormalStack.Screen name="BottomTabNavigator" component={BottomTabNavigator}></NormalStack.Screen>
+      </NormalStack.Group>
+      <NormalStack.Group screenOptions={{ presentation: 'modal' }}>
+        <NormalStack.Screen name="Modal" screenOptions={({navigation}) => ({ 'mode': 'modal'})} component={Modal}></NormalStack.Screen>
+      </NormalStack.Group>
+    </NormalStack.Navigator>
+  )
+}
 export const BottomTabNavigator = () => {
   const [maxWidth, setMaxWidth] = useState(Dimensions.get("window").width);
   const returnpathDown = getPathDown(maxWidth, 60, 50);
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={{
         tabBarStyle: {
           backgroundColor: "transparent",
           borderTopWidth: 0,
           position: "absolute",
           elevation: 0,
+          tabBarActiveTintColor: '#4caf50',
         },
       }}
     >
@@ -33,25 +51,36 @@ export const BottomTabNavigator = () => {
             margin: 0,
             backgroundColor: "white",
           },
-          tabBarIcon: () => (
-            <Image
+          tabBarIcon: ({ focused, color, size }) => (
+            focused ? <Image
               style={{
-                width: 36,
-                height: 36,
+                width: 28,
+                height: 28,
               }}
-              source={{
-                uri: "https://img.icons8.com/small/64/null/gender-neutral-user.png",
+              source={IconManager.home_icon}
+            /> : <Image
+              style={{
+                width: 28,
+                height: 28,
               }}
+              source={IconManager.home_icon_s}
             />
           ),
-          tabBarLabel: () => (
-            <Text className="text-black text-xs">Home</Text>
+          tabBarLabel: ({ focused }) => (
+           focused ? <Text className="text-xs" style={{ color: '#4caf50' }}>明细</Text> : <Text className="text-xs text-black">明细</Text>
           ),
         }}
       />
       <Tab.Screen
-        name="Modal"
-        component={Modal}
+        name="None"
+        component={None}
+        listeners={({ navigation, route }) => ({
+          tabPress: e => {
+            // Prevent default action
+            e.preventDefault()
+            navigation.navigate("Modal", {mode: "modal"})
+          }
+        })}
         options={{
           headerShown: false,
           unmountOnBlur: false,
@@ -73,12 +102,10 @@ export const BottomTabNavigator = () => {
             >
               <Image
                 style={{
-                  width: 36,
-                  height: 36,
+                  width: 24,
+                  height: 24,
                 }}
-                source={{
-                  uri: "https://img.icons8.com/sf-regular-filled/48/null/home-page.png",
-                }}
+                source={IconManager.add_note}
               />
             </View>
           ),
@@ -89,6 +116,7 @@ export const BottomTabNavigator = () => {
               </Svg>
             </View>
           ),
+          
         }}
       />
       <Tab.Screen
@@ -100,19 +128,23 @@ export const BottomTabNavigator = () => {
             margin: 0,
             backgroundColor: "white",
           },
-          tabBarIcon: () => (
-            <Image
+          tabBarIcon: ({ focused, color, size }) => (
+            focused ? <Image
               style={{
-                width: 36,
-                height: 36,
+                width: 28,
+                height: 28,
               }}
-              source={{
-                uri: "https://img.icons8.com/small/64/null/gear.png",
+              source={IconManager.charts_icon}
+            /> : <Image
+              style={{
+                width: 28,
+                height: 28,
               }}
+              source={IconManager.charts_icon_s}
             />
           ),
-          tabBarLabel: () => (
-            <Text className="text-black text-xs">Charts</Text>
+          tabBarLabel: ({ focused }) => (
+            focused ? <Text className="text-xs" style={{ color: '#4caf50' }}>统计</Text> : <Text className="text-xs text-black">统计</Text>
           ),
         }}
       />
