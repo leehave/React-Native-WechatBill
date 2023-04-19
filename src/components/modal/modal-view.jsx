@@ -10,7 +10,6 @@ import {
   ViewStyle,
 } from 'react-native'
 
-import { CallbackOnBackHandler } from './props-type'
 import Portal from '../portal'
 import React from 'react'
 
