@@ -38,7 +38,7 @@ export const BottomTabNavigator = () => {
           borderTopWidth: 0,
           position: "absolute",
           elevation: 0,
-          tabBarActiveTintColor: '#4caf50',
+          tabBarActiveTintColor: '#63b27b',
         },
       }}
     >
@@ -67,7 +67,7 @@ export const BottomTabNavigator = () => {
             />
           ),
           tabBarLabel: ({ focused }) => (
-           focused ? <Text className="text-xs" style={{ color: '#4caf50' }}>明细</Text> : <Text className="text-xs text-black">明细</Text>
+           focused ? <Text className="text-xs" style={{ color: '#63b27b' }}>明细</Text> : <Text className="text-xs text-black">明细</Text>
           ),
         }}
       />
@@ -144,7 +144,7 @@ export const BottomTabNavigator = () => {
             />
           ),
           tabBarLabel: ({ focused }) => (
-            focused ? <Text className="text-xs" style={{ color: '#4caf50' }}>统计</Text> : <Text className="text-xs text-black">统计</Text>
+            focused ? <Text className="text-xs" style={{ color: '#63b27b' }}>统计</Text> : <Text className="text-xs text-black">统计</Text>
           ),
         }}
       />

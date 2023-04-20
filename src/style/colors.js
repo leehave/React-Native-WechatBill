@@ -41,7 +41,7 @@ import { observable } from 'mobx'
 export const Default = {
   primary: '#0d86ff',
   secondary: '#262626',
-  accent: '#4caf50',
+  accent: '#63b27b',
   red: '#ff5722',
   yellow: '#ffeb3b',
   grey: '#e3e3e3',
@@ -61,7 +61,7 @@ export const Default = {
 export const Dark = {
   primary: '#0d86ff',
   secondary: '#262626',
-  accent: '#4caf50',
+  accent: '#63b27b',
   red: '#ff5722',
   yellow: '#ffeb3b',
   grey: '#3e3e3e',

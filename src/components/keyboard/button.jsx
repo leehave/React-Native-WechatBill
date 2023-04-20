@@ -27,11 +27,11 @@ export default class KeyBoardButton extends React.Component {
               style={[
                 _styles.container,
                 {
-                  backgroundColor: index != 15 ? 'white' : '#07c160',
+                  backgroundColor: index != 15 ? 'white' : '#63b27b',
                 },
               ]}
               underlayColor={
-                index != 15 ? 'rgba(250, 250, 250, 1)' : '#07c160'
+                index != 15 ? 'rgba(250, 250, 250, 1)' : '#63b27b'
               }>
               <View style={_styles.view}>
                 <Text

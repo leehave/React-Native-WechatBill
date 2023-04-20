@@ -1,4 +1,4 @@
-const brandPrimary = '#07c160'
+const brandPrimary = '#63b27b'
 const brandPrimaryTap = '#06ae56'
 
 export default {
@@ -31,7 +31,7 @@ export default {
   brand_warning: '#f4333c',
   brand_error: '#f4333c',
   brand_important: '#ff5b05', // 用于小红点
-  brand_wait: '#07c160',
+  brand_wait: '#63b27b',
 
   // 边框色
   border_color_base: '#dddddd',
@@ -159,16 +159,16 @@ export default {
   notice_bar_height: 36,
 
   // checkbox
-  checkbox_fill: '#07c160',
+  checkbox_fill: '#63b27b',
   checkbox_fill_disabled: '#f5f5f5',
   checkbox_border: '#d9d9d9',
   checkbox_border_disabled: '#b9b9b9',
 
   // switch
-  switch_fill: '#07c160',
+  switch_fill: '#63b27b',
   switch_unchecked: '#cccccc',
   switch_unchecked_disabled: '#cccccc66', // switch_fill的40%透明度
-  switch_checked_disabled: '#07c16066', // switch_unchecked的40%透明度
+  switch_checked_disabled: '#63b27b66', // switch_unchecked的40%透明度
 
   // tag
   tag_height: 25,

@@ -18,4 +18,5 @@ export const IconManager = {
   icon_calendar2: require('~/assets/images/icon/icon-calendar2.png'),
   refresh: require('~/assets/images/icon/refresh.png'),
   icon_calendar: require('~/assets/images/icon/icon-calendar.png'),
+  icon_dowm_arrow: require('~/assets/images/icon/date_arrow_dowwn.png'),
 };

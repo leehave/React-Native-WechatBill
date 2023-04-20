@@ -40,7 +40,7 @@ export default class KeyBoardFiled extends React.Component {
                 placeholderTextColor={'#cccccc'}
                 contextMenuHidden={true}
                 onChangeText={text => this.setState({text})}
-                selectionColor={'#07c160'}
+                selectionColor={'#63b27b'}
                 returnKeyType={'done'}
                 autoCorrect={false}
                 value={this.state.text}
