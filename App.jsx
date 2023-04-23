@@ -58,20 +58,19 @@ function App() {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     flex: 1,
-    paddingTop: 35
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
+    <View style={backgroundStyle}>
+      {/* <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
-      />
+      /> */}
       <NavigationContainer>
         <NormalStackScreen></NormalStackScreen>
         {/* <BottomTabNavigator></BottomTabNavigator> */}
       </NavigationContainer>
-    </SafeAreaView>
+    </View>
   );
 }
 

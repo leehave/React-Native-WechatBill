@@ -19,4 +19,5 @@ export const IconManager = {
   refresh: require('~/assets/images/icon/refresh.png'),
   icon_calendar: require('~/assets/images/icon/icon-calendar.png'),
   icon_dowm_arrow: require('~/assets/images/icon/date_arrow_dowwn.png'),
+  test_icon: require('~/assets/images/outlay/icon-baoxian-active.png'),
 };

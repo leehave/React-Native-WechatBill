@@ -28,7 +28,7 @@ export const NormalStackScreen = () => {
 }
 export const BottomTabNavigator = () => {
   const [maxWidth, setMaxWidth] = useState(Dimensions.get("window").width);
-  const returnpathDown = getPathDown(maxWidth, 60, 50);
+  const returnpathDown = getPathDown(maxWidth, 60, 56);
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -38,6 +38,7 @@ export const BottomTabNavigator = () => {
           borderTopWidth: 0,
           position: "absolute",
           elevation: 0,
+          
           tabBarActiveTintColor: '#63b27b',
         },
       }}
@@ -54,20 +55,20 @@ export const BottomTabNavigator = () => {
           tabBarIcon: ({ focused, color, size }) => (
             focused ? <Image
               style={{
-                width: 28,
-                height: 28,
+                width: 24,
+                height: 24,
               }}
               source={IconManager.home_icon}
             /> : <Image
               style={{
-                width: 28,
-                height: 28,
+                width: 24,
+                height: 24,
               }}
               source={IconManager.home_icon_s}
             />
           ),
           tabBarLabel: ({ focused }) => (
-           focused ? <Text className="text-xs" style={{ color: '#63b27b' }}>明细</Text> : <Text className="text-xs text-black">明细</Text>
+           focused ? <Text className="text-xs" style={{ color: '#63b27b', fontSize: 14 }}>明细</Text> : <Text className="text-xs text-black" style={{ fontSize: 14 }}>明细</Text>
           ),
         }}
       />
@@ -131,20 +132,20 @@ export const BottomTabNavigator = () => {
           tabBarIcon: ({ focused, color, size }) => (
             focused ? <Image
               style={{
-                width: 28,
-                height: 28,
+                width: 24,
+                height: 24,
               }}
               source={IconManager.charts_icon}
             /> : <Image
               style={{
-                width: 28,
-                height: 28,
+                width: 24,
+                height: 24,
               }}
               source={IconManager.charts_icon_s}
             />
           ),
           tabBarLabel: ({ focused }) => (
-            focused ? <Text className="text-xs" style={{ color: '#63b27b' }}>统计</Text> : <Text className="text-xs text-black">统计</Text>
+            focused ? <Text className="text-xs" style={{ color: '#63b27b', fontSize: 14 }}>统计</Text> : <Text className="text-xs text-black" style={{ fontSize: 14 }}>统计</Text>
           ),
         }}
       />

@@ -136,6 +136,7 @@ export default class KeyBoardButton extends React.Component {
   //============================ 界面 ============================//
   // 按钮
   subitem = (_styles) => {
+    // var button = [];
     var button = [];
     for (var i = 0; i < 4; i++) {
       var subbutton = [];
@@ -161,21 +162,106 @@ export default class KeyBoardButton extends React.Component {
         </View>,
       );
     }
-    return button;
+    
+    return button
   };
   // 初始化
   render() {
+    // const renderButtonGroup = (_styles) => {
+    //   return (
+    //     <View style={_styles.keyboardWrapper}>
+    //       <View style={_styles.boardLeft}>
+    //         <View styles={_styles.boardBtnGrow}>
+    //           <Button
+    //             title={'1'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //           <Button
+    //             title={'2'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //           <Button
+    //             title={'3'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //         </View>
+    //         <View styles={_styles.boardBtnGrow}>
+    //           <Button
+    //             title={'4'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //           <Button
+    //             title={'5'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //           <Button
+    //             title={'6'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //         </View>
+    //         <View styles={_styles.boardBtnGrow}>
+    //           <Button
+    //             title={'7'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //           <Button
+    //             title={'8'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //           <Button
+    //             title={'9'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //         </View>
+    //         <View styles={_styles.boardBtnGrow}>
+    //           <Button
+    //             title={'0'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //           <Button
+    //             title={'.'}
+    //             onPress={() => {}}
+    //             style={_styles.subview}
+    //           />
+    //         </View>
+    //       </View>
+    //       <View style={_styles.boardRight}>
+    //         <Button
+    //           title={'1'}
+    //           onPress={() => {}}
+    //           style={_styles.subview}
+    //         />
+    //         <Button
+    //           title={'1'}
+    //           onPress={() => {}}
+    //           style={_styles.subview}
+    //         />
+    //       </View>
+    //     </View>
+    //   )
+    // }
     return (
       <WithTheme themeStyles={KeybodrdStyles}>
         {_styles => {
           return (
             <Animated.View style={{height: this.state.keyboardAnim}}>
               <Animated.View style={_styles.container}>
-                <Field
+                {/* <Field
                   ref={this.field}
                   money={this.state.money}
                   styles={{top: this.state.inputAnim}}
-                />
+                /> */}
+                {/* {renderButtonGroup(_styles)} */}
                 {this.subitem(_styles)}
               </Animated.View>
             </Animated.View>

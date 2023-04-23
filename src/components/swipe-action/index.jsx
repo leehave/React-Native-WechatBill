@@ -58,8 +58,9 @@ class SwipeAction extends React.Component {
     return (
       <View
         style={{
-          width,
-          flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+          minWidth: width,
+          flexDirection: 'row',
+          flexWrap: 'nowrap'
         }}>
         {buttons.map((button, i) => {
           const x = isLeft ? -i * buttonWidth : (len - i) * buttonWidth
@@ -113,9 +114,12 @@ export default SwipeAction
 const styles = StyleSheet.create({
   actionText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 12,
     backgroundColor: 'transparent',
-    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 4,
+    paddingRight: 4
   },
   rightAction: {
     alignItems: 'center',

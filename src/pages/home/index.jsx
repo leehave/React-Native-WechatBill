@@ -1,29 +1,28 @@
-import { Image, Platform, SectionList, StatusBar, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, Platform, SectionList, StatusBar, StyleSheet, Text, View } from "react-native";
 
-import { IconManager } from '~/assets/json/iconManager'
+import CardItem from "./component/card";
+import { IconManager } from '~/assets/json/iconManager';
 import React from "react";
 
 const class_icon = require('~/assets/images/icon/leixing.png');
 const DATA = [
   {
-    title: "Main dishes",
-    data: ["Pizza", "Burger", "Risotto"],
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
   },
   {
-    title: "Sides",
-    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
-  },
-  {
-    title: "Drinks",
-    data: ["Water", "Coke", "Beer"],
-  },
-  {
-    title: "Desserts",
-    data: ["Cheese Cake", "Ice Cream"],
-  },
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  }
 ];
-
 function Home() {
+  const renderItem = () => {
+    return (
+      <View>
+        <CardItem></CardItem> 
+      </View>
+    )
+  }
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
@@ -56,18 +55,13 @@ function Home() {
           </View>
         </View>
       </View>
-      {/* <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={styles.title}>{item}</Text>
-          </View>
-        )}
-        renderSectionHeader={({ section: { title } }) => (
-          <Text style={styles.header}>{title}</Text>
-        )}
-      /> */}
+     <View style={styles.card_wrapper}>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+    </View>
     </View>
   );
 }
@@ -75,6 +69,14 @@ function Home() {
 export default Home;
 
 const styles = StyleSheet.create({
+  card_wrapper: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: '#EDEDED'
+  },
   datetime: {
     // flex: 1,
     display: 'flex',
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   timetext: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#ffffff'
   },
   monthdesc: {

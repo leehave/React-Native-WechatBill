@@ -24,11 +24,12 @@ export default (variables) =>
       backgroundColor: variables.fill_base,
       borderTopWidth: StyleSheet.hairlineWidth,
       borderTopColor: variables.border_color_base,
+      flex: 1
     },
     BodyBottomLine: {
       position: 'absolute',
       bottom: 0,
-      left: 0,
+      left: 50,
       right: 0,
       height: 1,
       backgroundColor: variables.fill_base,
@@ -39,7 +40,8 @@ export default (variables) =>
       flexGrow: 1,
       alignItems: 'center',
       flexDirection: 'row',
-      paddingLeft: variables.h_spacing_lg,
+      paddingTop: variables.h_spacing_md,
+      paddingBottom: variables.h_spacing_md,
       backgroundColor: variables.fill_base,
     },
     Line: {
@@ -49,21 +51,23 @@ export default (variables) =>
       paddingRight: variables.h_spacing_lg,
       paddingVertical: variables.v_spacing_sm,
       minHeight: variables.list_item_height,
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: variables.border_color_base,
+      // borderBottomWidth: StyleSheet.hairlineWidth,
+      // borderBottomColor: variables.border_color_base,
     },
     Thumb: {
       width: variables.icon_size_md,
       height: variables.icon_size_md,
       marginRight: variables.h_spacing_lg,
+      marginRight: 10
     },
     Content: {
       color: variables.color_text_base,
       fontSize: variables.font_size_heading,
       textAlignVertical: 'center',
+      flex: 1
     },
     Extra: {
-      color: variables.color_text_caption,
+      color: variables.color_text_base,
       fontSize: variables.font_size_heading,
       textAlign: 'right',
       textAlignVertical: 'center',
