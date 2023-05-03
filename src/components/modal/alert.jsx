@@ -1,10 +1,8 @@
-import { Action, CallbackOnBackHandler } from './props-type'
-
 import AlertContainer from './alert-container'
 import Portal from '../portal'
 import React from 'react'
 
-export default function Alert(
+export default function a(
   title,
   content,
   actions = [{ text: '确定' }],

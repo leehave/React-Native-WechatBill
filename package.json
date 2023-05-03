@@ -47,6 +47,7 @@
     "react-native-screens": "^3.20.0",
     "react-native-size-scaling": "^0.5.1",
     "react-native-splash-screen": "^3.3.0",
+    "react-native-super-grid": "^5.0.0",
     "react-native-svg": "13.4.0",
     "react-native-webview": "^11.26.1",
     "shallowequal": "^1.1.0"

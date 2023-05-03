@@ -1,4 +1,6 @@
 import { Dimensions, Platform, StatusBar } from 'react-native';
+
+import {Px2Dp} from './tool';
 const { width, height } = Dimensions.get('window');
 const OS = Platform.OS;
 const ios = OS == 'ios';
@@ -14,6 +16,7 @@ const STATUS_BAR_HEIGHT = statusBarHeight;
 const NAVIGATION_HEIGHT = navigationHeight;
 const SAFE_AREA_BOTTOM_HEIGHT = safeAreaBottomHeight;
 const STATUS_TABBAR_HEIGHT = statusTabBarHeight;
+const countcoordinatesX = Px2Dp;
 export {
   isIPhoneX,
   statusBarHeight,
@@ -25,5 +28,6 @@ export {
   STATUS_BAR_HEIGHT,
   NAVIGATION_HEIGHT,
   SAFE_AREA_BOTTOM_HEIGHT,
-  STATUS_TABBAR_HEIGHT
-}
+  STATUS_TABBAR_HEIGHT,
+  countcoordinatesX,
+};

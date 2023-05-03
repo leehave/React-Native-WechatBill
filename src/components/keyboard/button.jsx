@@ -25,7 +25,7 @@ export default class KeyBoardButton extends React.Component {
             <TouchableHighlight
               onPress={() => onPress(index)}
               style={[
-                _styles.container,
+                _styles.containerbtn,
                 {
                   backgroundColor: index != 15 ? 'white' : '#63b27b',
                 },
@@ -55,23 +55,23 @@ export default class KeyBoardButton extends React.Component {
   // 内容
   getButtonContent = (index, date) => {
     if (index == 0) {
-      return '7';
-    } else if (index == 1) {
-      return '8';
-    } else if (index == 2) {
-      return '9';
-    } else if (index == 3) {
-      return '今天';
-    } else if (index == 4) {
-      return '4';
-    } else if (index == 5) {
-      return '5';
-    } else if (index == 6) {
-      return '6';
-    } else if (index == 7) {
-      return '+';
-    } else if (index == 8) {
       return '1';
+    } else if (index == 1) {
+      return '4';
+    } else if (index == 2) {
+      return '7';
+    } else if (index == 3) {
+      return '2';
+    } else if (index == 4) {
+      return '5';
+    } else if (index == 5) {
+      return '8';
+    } else if (index == 6) {
+      return '3';
+    } else if (index == 7) {
+      return '6';
+    } else if (index == 8) {
+      return '9';
     } else if (index == 9) {
       return '2';
     } else if (index == 10) {

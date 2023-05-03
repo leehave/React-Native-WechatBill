@@ -1,4 +1,3 @@
-import { Action, CallbackOnBackHandler } from './props-type'
 import React, { isValidElement } from 'react'
 import { ScrollView, Text, TextStyle } from 'react-native'
 
@@ -68,6 +67,6 @@ export default class AlertContainer extends React.Component{
           {isValidElement(content) ? content : <Text>{content}</Text>}
         </ScrollView>
       </Modal>
-    )
+    );
   }
 }

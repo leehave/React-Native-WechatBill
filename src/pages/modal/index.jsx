@@ -1,8 +1,28 @@
-import { Animated, Button, Image, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import {
+  Animated,
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import React, {Component} from "react";
+import {
+  SCREEN_WIDTH,
+  countcoordinatesX
+} from '@app/utils/util';
 
 import CustomKeyBoard from '~/components/keyboard/keyboard'
+import DateDayPicker from '~/components/datepicker';
 import { IconManager } from '~/assets/json/iconManager';
+import Provider from '~/components/provider';
+import { SimpleGrid } from 'react-native-super-grid';
+import { base } from '~/style/fonts'
+import {setDayCalendarList} from '~/utils/date';
 
 const MockData = [
   {
@@ -131,82 +151,141 @@ const MockData = [
     classId: 18,
     name: '其他人情'
   },
-]
+];
+const DATE = new Date(),
+  currentYear = DATE.getFullYear(),
+  currentMonth = DATE.getMonth() + 1,
+  currentDay = DATE.getDate();
+const startCalendarTime = 1588262400;
+const dayCalendarData = setDayCalendarList(startCalendarTime);
 export default class Profile extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
+      dataPickerFlag: `${currentYear}${
+        currentMonth < 10 ? '0' + currentMonth : currentMonth
+      }${currentDay < 10 ? '0' + currentDay : currentDay}`,
       navigationIndex: 0,
       models: [[], []],
-      ifShowCursor: false
-    }
+      ifShowCursor: false,
+      datePickerShow: false,
+      calendar: [],
+      calendarTime: startCalendarTime,
+      dateCalendarData: dayCalendarData,
+    };
   }
+  monthPicker = () => {
+    this.setState({
+      datePickerShow: true,
+    });
+  };
+  closeMonthPicker = () => {
+    this.setState({
+      datePickerShow: false,
+    });
+  };
   render() {
-    console.log(this.props.route, 'render props')
-    const {params} = this.props.route
-    const renderIconGroup = MockData.map((item, index) => {
-      return (
-        <TouchableHighlight key={index} underlayColor="#ddd" onPress={() => {console.log('press');}}>
-          <View style={styles.classIcon}>
-            <Image
-              source={item.icon_url_normal}
-              style={{ width: 30, height: 30, marginBottom: 6 }}
-            />
-            <Text style={styles.gridText}>{item.name}</Text>
-          </View>
-        </TouchableHighlight>
-      )
-    })
+    console.log(this.props.route, 'render props');
+    const {params} = this.props.route;
     return (
-      <View style={styles.container}>
-        <View style={[styles.closeWrap]}>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              this.props.navigation.goBack()
-            }}>
+      <Provider>
+        <View style={styles.container}>
+          <View style={[styles.closeWrap]}>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}>
               <View>
                 <Text style={[styles.close]}>×</Text>
               </View>
-          </TouchableWithoutFeedback>
-        </View>
-        <View style={styles.classAndDayPicker}>
-          <View style={styles.controlLeft}>
-            <View style={[styles.tagItem, styles.tagItemActiveBg]}>
-              <Text style={[styles.tagText, styles.tagItemActive]}>支出</Text>
+            </TouchableWithoutFeedback>
+          </View>
+          <View style={styles.classAndDayPicker}>
+            <View style={styles.controlLeft}>
+              <View style={[styles.tagItem, styles.tagItemActiveBg]}>
+                <Text style={[styles.tagText, styles.tagItemActive]}>支出</Text>
+              </View>
+              <View style={[styles.tagItem, styles.tagItemNormalBg]}>
+                <Text style={[styles.tagText, styles.tagItemNormal]}>入账</Text>
+              </View>
             </View>
-            <View style={[styles.tagItem, styles.tagItemNormalBg]}>
-              <Text style={[styles.tagText, styles.tagItemNormal]}>入账</Text>
+            <TouchableHighlight
+              onPress={this.monthPicker}
+              style={[
+                {
+                  backgroundColor: 'transparent',
+                },
+              ]}
+              underlayColor={'rgba(250, 250, 250, .1)'}>
+              <View style={styles.controlRight}>
+                <View style={styles.datePicker}>
+                  <Text>4月18日</Text>
+                  <Image
+                    source={IconManager.icon_dowm_arrow}
+                    style={{width: 12, height: 6, marginLeft: 6}}
+                  />
+                </View>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View style={styles.noteCenter}>
+            <View style={styles.noteCenterIcon}>
+              <Text style={styles.noteCenterUnit}>￥</Text>
+            </View>
+            <View style={styles.noteCenterMoney}>
+              <Text style={styles.noteMoney}>100</Text>
+              <Animated.View style={styles.cursor}></Animated.View>
             </View>
           </View>
-          <View style={styles.controlRight}>
-            <View style={styles.datePicker}>
-              <Text>4月18日</Text>
-              <Image
-                source={IconManager.icon_dowm_arrow}
-                style={{ width: 12, height: 6, marginLeft: 6 }}
+          <View style={styles.gridIconScroll}>
+            <ScrollView style={styles.scrollView} ref="flatGrid">
+              <SimpleGrid
+                itemDimension={50}
+                data={MockData}
+                staticDimension={SCREEN_WIDTH}
+                spacing={5}
+                renderItem={({item, id}) => (
+                  <TouchableHighlight
+                    key={id}
+                    style={[
+                      {
+                        width: countcoordinatesX(100),
+                        height: countcoordinatesX(120),
+                        paddingBottom: 10,
+                      },
+                    ]}
+                    underlayColor="#ddd"
+                    onPress={() => {}}>
+                    <View style={styles.classIcon}>
+                      <Image
+                        source={item.icon_url_normal}
+                        style={{width: 30, height: 30, marginBottom: 6}}
+                      />
+                      <Text style={styles.gridText}>{item.name}</Text>
+                    </View>
+                  </TouchableHighlight>
+                )}
               />
+            </ScrollView>
+            <View style={styles.customText}>
+              <Text style={styles.remark}>添加备注</Text>
             </View>
+            <CustomKeyBoard
+              ref={'keyboard'}
+              onBookPress={() => {
+                console.log('keybord');
+              }}
+              model={params['model']}></CustomKeyBoard>
           </View>
+          <DateDayPicker
+            datePickerVisible={this.state.datePickerShow}
+            calendar={this.state.dateCalendarData}
+            dateFlag={this.state.dataPickerFlag}
+            closeMonthPicker={() => this.closeMonthPicker()}
+          />
         </View>
-        <View style={styles.noteCenter}>
-          <View style={styles.noteCenterIcon}>
-            <Text style={styles.noteCenterUnit}>￥</Text>
-          </View>
-          <View style={styles.noteCenterMoney}>
-            <Text style={styles.noteMoney}>100</Text>
-            <Animated.View style={styles.cursor}></Animated.View>
-          </View>
-        </View>
-        <View style={styles.gridIconScroll}>
-          <ScrollView style={styles.scrollView}>
-            <View style={styles.gridIconWrapper}>
-              {renderIconGroup}
-            </View>
-          </ScrollView>
-          <CustomKeyBoard ref={"keyboard"} onBookPress={() => {console.log('keybord');}}  model={params["model"]}></CustomKeyBoard>
-        </View>
-      </View>
-   );
+      </Provider>
+    );
   }
 }
 
@@ -244,10 +323,10 @@ const styles = StyleSheet.create({
   },
   controlRight: {
     width: 106,
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingBottom: 10,
-    paddingRight: 10,
+    paddingTop: 5,
+    paddingLeft: 5,
+    paddingBottom: 5,
+    paddingRight: 5,
     display: 'flex',
     backgroundColor: '#F7F7F7',
     justifyContent: 'center',
@@ -295,15 +374,18 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '500',
     verticalAlign: 'top',
-    marginRight: 4
+    marginRight: 4,
+    fontFamily: base.fontFamily
   },
   noteMoney: {
-    fontSize: 32
+    fontSize: 36,
+    fontWeight: 'bold',
+    fontFamily: base.fontFamily
   },
   tagItem: {
-    paddingTop: 10,
+    paddingTop: 5,
     paddingLeft: 20,
-    paddingBottom: 10,
+    paddingBottom: 5,
     paddingRight: 20,
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
@@ -312,7 +394,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   tagText: {
-    fontSize: 16
+    fontSize: 14
   },
   tagItemNormal: {
     color: '#A5A5A5',
@@ -327,26 +409,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7F7F7',
   },
   scrollView: {
-    marginHorizontal: 20,
-    maxHeight: 120
+    flex: 1,
+    // paddingLeft: 5,
+    // paddingRight: 5,
+    maxHeight: 120,
   },
   gridIconScroll: {
+    flex: 1,
     paddingTop: 20,
     paddingBottom: 20,
-  },
-  gridIconWrapper: {
-    display: 'flex',
-    // flex: 1,
-    flexGrow: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
+    paddingLeft: 0,
+    paddingRight: 0
   },
   classIcon: {
     width: 50,
-    flexBasis: 50,
-    marginLeft: 2,
-    marginRight: 2,
+    flexBasis: 60,
+    // marginLeft: 6,
+    marginRight: 16,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -355,5 +434,14 @@ const styles = StyleSheet.create({
   },
   gridText: {
     fontSize: 12
+  },
+  customText: {
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingBottom: 20,
+  },
+  remark: {
+    color: '#175199',
+    fontSize: 14
   }
 });

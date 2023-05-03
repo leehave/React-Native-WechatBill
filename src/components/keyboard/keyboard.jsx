@@ -1,10 +1,11 @@
 import {
   Animated,
   Easing,
+  Image,
   Keyboard,
   Text,
   TouchableHighlight,
-  View
+  View,
 } from 'react-native';
 import {
   NAVIGATION_HEIGHT,
@@ -17,11 +18,9 @@ import {
 import React, {Component, LegacyRef} from 'react';
 import {WithTheme, WithThemeStyles} from '../style';
 
-import Button from './button'
-import Calculation from './calculation'
+import Calculation from './calculation';
 import DateExtension from '@app/utils/date-extension';
-import Field from './field'
-import {KeyBoardFiledPropsType} from './field';
+import {IconManager} from '~/assets/json/iconManager';
 import KeybodrdStyles from './style/keyboard';
 
 export default class KeyBoardButton extends React.Component {
@@ -63,7 +62,7 @@ export default class KeyBoardButton extends React.Component {
   }
 
   // 键盘显示
-  _keyboardDidShow = (e) => {
+  _keyboardDidShow = e => {
     const keyboardH = e.endCoordinates.height;
     const inputKeyH = (SCREEN_HEIGHT - NAVIGATION_HEIGHT) / 2;
     const inputH = 120;
@@ -77,7 +76,7 @@ export default class KeyBoardButton extends React.Component {
     }).start(result => {});
   };
   // 键盘隐藏
-  _keyboardDidHide = (e) => {
+  _keyboardDidHide = e => {
     Animated.timing(this.state.inputAnim, {
       duration: 200,
       easing: Easing.elastic(0),
@@ -86,7 +85,7 @@ export default class KeyBoardButton extends React.Component {
     }).start(result => {});
   };
   // 点击Item
-  _onItemPress = (index) => {
+  _onItemPress = index => {
     // 点击时间
     if (Calculation.isDate(index)) {
       // this.picker.show();
@@ -133,136 +132,296 @@ export default class KeyBoardButton extends React.Component {
     }
   };
 
-  //============================ 界面 ============================//
-  // 按钮
-  subitem = (_styles) => {
-    // var button = [];
-    var button = [];
-    for (var i = 0; i < 4; i++) {
-      var subbutton = [];
-      for (var y = 0; y < 4; y++) {
-        const key = i * 4 + y;
-        subbutton.push(
-          <Button
-            key={key}
-            index={key}
-            title={Calculation.getButtonString(
-              i * 4 + y,
-              this.state.money,
-              this.state.date,
-            )}
-            onPress={this._onItemPress}
-            style={_styles.subview}
-          />,
-        );
-      }
-      button.push(
-        <View key={i} style={_styles.view}>
-          {subbutton}
-        </View>,
-      );
-    }
-    
-    return button
+  renderButtonGroup = _styles => {
+    return (
+      <View style={_styles.keyboardWrapper}>
+        <View
+          style={[
+            _styles.keyboardWd,
+            {flexDirection: 'column', backgroundColor: '#FAFAFA', margin: 0},
+          ]}>
+          <View
+            style={{
+              flex: 1,
+              padding: 5,
+              flexDirection: 'row',
+              backgroundColor: '#FAFAFA',
+            }}>
+            <View style={{flex: 3, backgroundColor: '#aaaabb'}}>
+              <View
+                style={{
+                  flex: 3,
+                  flexDirection: 'column',
+                  backgroundColor: '#FAFAFA',
+                }}>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    backgroundColor: '#FAFAFA',
+                  }}>
+                  <View style={{flex: 1, flexDirection: 'row'}}>
+                    <View style={{flex: 1, padding: 5}}>
+                      <TouchableHighlight
+                        onPress={() => {}}
+                        style={[
+                          _styles.singleBtn,
+                          {
+                            backgroundColor: 'white',
+                          },
+                        ]}
+                        underlayColor={'rgba(250, 250, 250, 1)'}>
+                        <View style={_styles.view}>
+                          <Text style={_styles.keyboardText}>1</Text>
+                        </View>
+                      </TouchableHighlight>
+                    </View>
+                    <View style={{flex: 1, padding: 5}}>
+                      <TouchableHighlight
+                        onPress={() => {}}
+                        style={[
+                          _styles.singleBtn,
+                          {
+                            backgroundColor: 'white',
+                          },
+                        ]}
+                        underlayColor={'rgba(250, 250, 250, 1)'}>
+                        <View style={_styles.view}>
+                          <Text style={_styles.keyboardText}>2</Text>
+                        </View>
+                      </TouchableHighlight>
+                    </View>
+                    <View style={{flex: 1, padding: 5}}>
+                      <TouchableHighlight
+                        onPress={() => {}}
+                        style={[
+                          _styles.singleBtn,
+                          {
+                            backgroundColor: 'white',
+                          },
+                        ]}
+                        underlayColor={'rgba(250, 250, 250, 1)'}>
+                        <View style={_styles.view}>
+                          <Text style={_styles.keyboardText}>3</Text>
+                        </View>
+                      </TouchableHighlight>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      backgroundColor: '#FAFAFA',
+                    }}>
+                    <View style={{flex: 1, padding: 5}}>
+                      <TouchableHighlight
+                        onPress={() => {}}
+                        style={[
+                          _styles.singleBtn,
+                          {
+                            backgroundColor: 'white',
+                          },
+                        ]}
+                        underlayColor={'rgba(250, 250, 250, 1)'}>
+                        <View style={_styles.view}>
+                          <Text style={_styles.keyboardText}>4</Text>
+                        </View>
+                      </TouchableHighlight>
+                    </View>
+                    <View style={{flex: 1, padding: 5}}>
+                      <TouchableHighlight
+                        onPress={() => {}}
+                        style={[
+                          _styles.singleBtn,
+                          {
+                            backgroundColor: 'white',
+                          },
+                        ]}
+                        underlayColor={'rgba(250, 250, 250, 1)'}>
+                        <View style={_styles.view}>
+                          <Text style={_styles.keyboardText}>5</Text>
+                        </View>
+                      </TouchableHighlight>
+                    </View>
+                    <View style={{flex: 1, padding: 5}}>
+                      <TouchableHighlight
+                        onPress={() => {}}
+                        style={[
+                          _styles.singleBtn,
+                          {
+                            backgroundColor: 'white',
+                          },
+                        ]}
+                        underlayColor={'rgba(250, 250, 250, 1)'}>
+                        <View style={_styles.view}>
+                          <Text style={_styles.keyboardText}>6</Text>
+                        </View>
+                      </TouchableHighlight>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      backgroundColor: '#FAFAFA',
+                    }}>
+                    <View style={{flex: 1, padding: 5}}>
+                      <TouchableHighlight
+                        onPress={() => {}}
+                        style={[
+                          _styles.singleBtn,
+                          {
+                            backgroundColor: 'white',
+                          },
+                        ]}
+                        underlayColor={'rgba(250, 250, 250, 1)'}>
+                        <View style={_styles.view}>
+                          <Text style={_styles.keyboardText}>7</Text>
+                        </View>
+                      </TouchableHighlight>
+                    </View>
+                    <View style={{flex: 1, padding: 5}}>
+                      <TouchableHighlight
+                        onPress={() => {}}
+                        style={[
+                          _styles.singleBtn,
+                          {
+                            backgroundColor: 'white',
+                          },
+                        ]}
+                        underlayColor={'rgba(250, 250, 250, 1)'}>
+                        <View style={_styles.view}>
+                          <Text style={_styles.keyboardText}>8</Text>
+                        </View>
+                      </TouchableHighlight>
+                    </View>
+                    <View style={{flex: 1, padding: 5}}>
+                      <TouchableHighlight
+                        onPress={() => {}}
+                        style={[
+                          _styles.singleBtn,
+                          {
+                            backgroundColor: 'white',
+                          },
+                        ]}
+                        underlayColor={'rgba(250, 250, 250, 1)'}>
+                        <View style={_styles.view}>
+                          <Text style={_styles.keyboardText}>9</Text>
+                        </View>
+                      </TouchableHighlight>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <View style={{flex: 1, backgroundColor: '#FAFAFA'}}>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    alignContent: 'space-between',
+                  }}>
+                  <View style={{flex: 2, padding: 5}}>
+                    <TouchableHighlight
+                      onPress={() => {}}
+                      style={[
+                        _styles.singleBtn,
+                        {
+                          backgroundColor: 'white',
+                          flex: 2,
+                        },
+                      ]}
+                      underlayColor={'rgba(250, 250, 250, 1)'}>
+                      <View style={_styles.view}>
+                        <Text style={_styles.keyboardText}>0</Text>
+                      </View>
+                    </TouchableHighlight>
+                  </View>
+                  <View style={{flex: 1, padding: 5}}>
+                    <TouchableHighlight
+                      onPress={() => {}}
+                      style={[
+                        _styles.singleBtn,
+                        {
+                          backgroundColor: 'white',
+                          flex: 1,
+                        },
+                      ]}
+                      underlayColor={'rgba(250, 250, 250, 1)'}>
+                      <View style={_styles.view}>
+                        <Text style={_styles.keyboardText}>.</Text>
+                      </View>
+                    </TouchableHighlight>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={{flex: 1, backgroundColor: '#FAFAFA'}}>
+              <View style={{flex: 1, flexDirection: 'column'}}>
+                <View style={{flex: 1, padding: 5}}>
+                  <TouchableHighlight
+                    onPress={() => {}}
+                    style={[
+                      _styles.singleBtn,
+                      {
+                        backgroundColor: 'white',
+                        flex: 1,
+                      },
+                    ]}
+                    underlayColor={'rgba(250, 250, 250, 1)'}>
+                    <View style={_styles.view}>
+                      <Image
+                        style={[
+                          {
+                            width: 24,
+                            height: 24,
+                          },
+                        ]}
+                        source={IconManager.keyboard_delete}></Image>
+                    </View>
+                  </TouchableHighlight>
+                </View>
+                <View style={{flex: 2, padding: 5}}>
+                  <TouchableHighlight
+                    onPress={() => {}}
+                    style={[
+                      _styles.singleBtn,
+                      {
+                        backgroundColor: '#A8D6B9',
+                        borderBottomColor: '#A8D6B9',
+                        borderRightColor: '#A8D6B9',
+                        flex: 2,
+                      },
+                    ]}
+                    underlayColor={'#63b27b'}>
+                    <View style={_styles.view}>
+                      <Text
+                        style={[
+                          {
+                            color: 'white',
+                            fontSize: 16,
+                          },
+                        ]}>
+                        确定
+                      </Text>
+                    </View>
+                  </TouchableHighlight>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
   };
   // 初始化
   render() {
-    // const renderButtonGroup = (_styles) => {
-    //   return (
-    //     <View style={_styles.keyboardWrapper}>
-    //       <View style={_styles.boardLeft}>
-    //         <View styles={_styles.boardBtnGrow}>
-    //           <Button
-    //             title={'1'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //           <Button
-    //             title={'2'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //           <Button
-    //             title={'3'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //         </View>
-    //         <View styles={_styles.boardBtnGrow}>
-    //           <Button
-    //             title={'4'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //           <Button
-    //             title={'5'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //           <Button
-    //             title={'6'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //         </View>
-    //         <View styles={_styles.boardBtnGrow}>
-    //           <Button
-    //             title={'7'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //           <Button
-    //             title={'8'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //           <Button
-    //             title={'9'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //         </View>
-    //         <View styles={_styles.boardBtnGrow}>
-    //           <Button
-    //             title={'0'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //           <Button
-    //             title={'.'}
-    //             onPress={() => {}}
-    //             style={_styles.subview}
-    //           />
-    //         </View>
-    //       </View>
-    //       <View style={_styles.boardRight}>
-    //         <Button
-    //           title={'1'}
-    //           onPress={() => {}}
-    //           style={_styles.subview}
-    //         />
-    //         <Button
-    //           title={'1'}
-    //           onPress={() => {}}
-    //           style={_styles.subview}
-    //         />
-    //       </View>
-    //     </View>
-    //   )
-    // }
     return (
       <WithTheme themeStyles={KeybodrdStyles}>
         {_styles => {
           return (
             <Animated.View style={{height: this.state.keyboardAnim}}>
               <Animated.View style={_styles.container}>
-                {/* <Field
-                  ref={this.field}
-                  money={this.state.money}
-                  styles={{top: this.state.inputAnim}}
-                /> */}
-                {/* {renderButtonGroup(_styles)} */}
-                {this.subitem(_styles)}
+                {this.renderButtonGroup(_styles)}
               </Animated.View>
             </Animated.View>
           );

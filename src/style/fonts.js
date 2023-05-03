@@ -11,20 +11,20 @@ export const getLineHeight = (fontSize) => {
   return parseInt(String(fontSize + (fontSize * multiplier)), 10)
 }
 
-export const fontFamily = 'DIN-Regular'
+export const fontFamily = 'WeChatSansStd-Medium';
 
 export const base = {
   fontSize: 15,
   lineHeight: getLineHeight(15),
   ...Platform.select({
     ios: {
-      fontFamily
+      fontFamily: 'WeChat Sans Std',
     },
     android: {
-      fontFamily
-    }
-  })
-}
+      fontFamily,
+    },
+  }),
+};
 
 export const small = {
   ...base,

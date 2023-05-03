@@ -47,7 +47,7 @@ function appendDaysOfMonth(month, year, calendar) {
     const dayObject = {
       value: i + 1,
       string: dateString,
-      future: getCurrentDateString() <= dateString
+      future: getCurrentDateString() <= dateString,
     };
     monthObject.days.push(dayObject);
   }
@@ -93,6 +93,7 @@ function appendWeeksOfMonth(month, year, calendar) {
       end: `${endMonth}.${endDay}`,
       flag: startDateString,
       amount: '',
+      width: 100 / 4 + 2 * 48 / 4,
       future: getCurrentDateString() <= endDateString
     })
   }
@@ -156,14 +157,59 @@ function generateDateList(startDateYear, startDateMonthIndex, endDateYear, endDa
 
   return dateList;
 }
+function isSameDay(e) {
+  if (!e) return !1;
+  const t = new Date(), r = e.split(",");
+  return parseInt(r[0]) === t.getFullYear() && parseInt(r[1]) === t.getMonth() + 1 && parseInt(r[2]) === t.getDate();
+}
+export function setDayCalendarList(r, a) {
+  const n = new Date(1e3 * r),
+    l = new Date(),
+    u = l.getFullYear(),
+    i = l.getMonth() + 1,
+    o = generateDateList(n.getFullYear(), n.getMonth() + 1, u, i, 'day');
+  return o;
+}
+export function setMonthCalendarList(r) {
+  const a = 1e3 * r,
+    n = new Date(),
+    l = new Date(a),
+    u = generateDateList(
+      l.getFullYear(),
+      l.getMonth() + 1,
+      n.getFullYear(),
+      12,
+      'month'
+    );
+  return u;
+}
 export default {
+  isSameDay: isSameDay,
   getDayList: function (startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex) {
-    generateDateList(startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex, "day");
+    generateDateList(
+      startDateYear,
+      startDateMonthIndex,
+      endDateYear,
+      endDateMonthIndex,
+      'day',
+    );
   },
   getWeekList: function (startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex) {
-    return generateDateList(startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex, "week");
+    return generateDateList(
+      startDateYear,
+      startDateMonthIndex,
+      endDateYear,
+      endDateMonthIndex,
+      'week',
+    );
   },
   getMonthList: function (startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex) {
-    return generateDateList(startDateYear, startDateMonthIndex, endDateYear, endDateMonthIndex, "month");
+    return generateDateList(
+      startDateYear,
+      startDateMonthIndex,
+      endDateYear,
+      endDateMonthIndex,
+      'month',
+    );
   },
 }

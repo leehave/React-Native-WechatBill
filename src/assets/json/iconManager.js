@@ -13,11 +13,12 @@ export const IconManager = {
   icon_edit: require('~/assets/images/icon/icon-edit.png'),
   arrow_right: require('~/assets/images/icon/arrow_right.png'),
   keyboard_delete: require('~/assets/images/icon/delete.png'),
-  deleteItem: require('~/assets/images/icon/deleteItem.png'),
+  delete_item: require('~/assets/images/icon/deleteItem.png'),
   empty_item: require('~/assets/images/icon/empty_item.png'),
   icon_calendar2: require('~/assets/images/icon/icon-calendar2.png'),
   refresh: require('~/assets/images/icon/refresh.png'),
   icon_calendar: require('~/assets/images/icon/icon-calendar.png'),
   icon_dowm_arrow: require('~/assets/images/icon/date_arrow_dowwn.png'),
   test_icon: require('~/assets/images/outlay/icon-baoxian-active.png'),
+  icon_back: require('~/assets/images/icon/icon-back.png')
 };

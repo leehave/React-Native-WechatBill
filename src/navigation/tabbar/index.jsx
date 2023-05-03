@@ -38,7 +38,6 @@ export const BottomTabNavigator = () => {
           borderTopWidth: 0,
           position: "absolute",
           elevation: 0,
-          
           tabBarActiveTintColor: '#63b27b',
         },
       }}
