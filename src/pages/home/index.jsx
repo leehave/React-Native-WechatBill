@@ -10,13 +10,13 @@ import {
   View,
 } from 'react-native';
 import React, {Component} from 'react';
+import { SCREEN_WIDTH, countcoordinatesX } from '~/utils/util';
 
 import CardItem from './component/card';
 import {IconManager} from '~/assets/json/iconManager';
 import Modal from '~/components/modal/index';
 import MonthPicker from '~/components/monthpicker/index';
 import Provider from '~/components/provider';
-import { countcoordinatesX } from '~/utils/util';
 import {setMonthCalendarList} from '~/utils/date';
 
 const class_icon = require('~/assets/images/icon/leixing.png');
@@ -121,6 +121,16 @@ export default class HomeStack extends Component {
               keyExtractor={item => item.id}
             />
           </View>
+          <View
+            style={[
+              {
+                width: SCREEN_WIDTH,
+                height: 40,
+                position: 'absolute',
+                bottom: 0,
+                backgroundColor: '#fff',
+              },
+            ]}></View>
         </View>
       </Provider>
     );

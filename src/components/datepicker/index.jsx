@@ -254,6 +254,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   weekLi: {
+    width: countcoordinatesX(84),
     fontSize: 14,
   },
   weekLiText: {

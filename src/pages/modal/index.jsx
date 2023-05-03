@@ -240,7 +240,7 @@ export default class Profile extends Component {
           <View style={styles.gridIconScroll}>
             <ScrollView style={styles.scrollView} ref="flatGrid">
               <SimpleGrid
-                itemDimension={50}
+                itemDimension={countcoordinatesX(100)}
                 data={MockData}
                 staticDimension={SCREEN_WIDTH}
                 spacing={5}
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     display: 'flex',
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
     paddingTop: 20,
     paddingBottom: 20,
   },
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     marginBottom: 12,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
   close: {
     fontSize: 40,
@@ -315,11 +315,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
   controlLeft: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   controlRight: {
     width: 106,
@@ -351,36 +351,36 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#E4E4E4',
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
   noteCenterMoney: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   cursor: {
     width: 1,
     height: 30,
     marginLeft: 4,
     borderRightWidth: 1,
-    borderRightColor: '#E4E4E4'
+    borderRightColor: '#E4E4E4',
   },
   noteCenterIcon: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   noteCenterUnit: {
     fontSize: 24,
     fontWeight: '500',
     verticalAlign: 'top',
     marginRight: 4,
-    fontFamily: base.fontFamily
+    fontFamily: base.fontFamily,
   },
   noteMoney: {
     fontSize: 36,
     fontWeight: 'bold',
-    fontFamily: base.fontFamily
+    fontFamily: base.fontFamily,
   },
   tagItem: {
     paddingTop: 5,
@@ -391,10 +391,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 4,
     borderBottomLeftRadius: 4,
     borderBottomRightRadius: 4,
-    marginRight: 10
+    marginRight: 10,
   },
   tagText: {
-    fontSize: 14
+    fontSize: 14,
   },
   tagItemNormal: {
     color: '#A5A5A5',
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECF7F1',
   },
   tagItemActive: {
-    color: '#65AB79'
+    color: '#65AB79',
   },
   tagItemNormalBg: {
     backgroundColor: '#F7F7F7',
@@ -412,14 +412,14 @@ const styles = StyleSheet.create({
     flex: 1,
     // paddingLeft: 5,
     // paddingRight: 5,
-    maxHeight: 120,
+    maxHeight: countcoordinatesX(240),
   },
   gridIconScroll: {
     flex: 1,
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 0,
-    paddingRight: 0
+    paddingRight: 0,
   },
   classIcon: {
     width: 50,
@@ -430,10 +430,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     flex: 1,
-    marginBottom: 15
+    marginBottom: 15,
   },
   gridText: {
-    fontSize: 12
+    fontSize: 12,
   },
   customText: {
     paddingTop: 15,
@@ -442,6 +442,6 @@ const styles = StyleSheet.create({
   },
   remark: {
     color: '#175199',
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
