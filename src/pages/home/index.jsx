@@ -13,12 +13,18 @@ import React, {Component} from 'react';
 import { SCREEN_WIDTH, countcoordinatesX } from '~/utils/util';
 
 import CardItem from './component/card';
+import ClassPicker from '~/components/classchoose/index';
 import {IconManager} from '~/assets/json/iconManager';
 import Modal from '~/components/modal/index';
 import MonthPicker from '~/components/monthpicker/index';
 import Provider from '~/components/provider';
+import {classification_list} from '~/assets/json/classification';
 import {setMonthCalendarList} from '~/utils/date';
 
+const classification = {
+  outcomesArr: classification_list.filter(item => item.bill_type === 1),
+  incomesArr: classification_list.filter(item => item.bill_type === 2),
+};
 const class_icon = require('~/assets/images/icon/leixing.png');
 const DATA = [
   {
@@ -46,6 +52,7 @@ export default class HomeStack extends Component {
       calendar: [],
       calendarTime: startCalendarTime,
       monthCalendarData: monthCalendarData,
+      classPickerShow: false,
     };
   }
   monthPicker = () => {
@@ -53,9 +60,19 @@ export default class HomeStack extends Component {
       monthPickerShow: true,
     });
   };
+  classPicker = () => {
+    this.setState({
+      classPickerShow: true,
+    });
+  };
   closeMonthPicker = () => {
     this.setState({
       monthPickerShow: false,
+    });
+  };
+  closeClassPicker = () => {
+    this.setState({
+      classPickerShow: false,
     });
   };
   render() {
@@ -75,11 +92,20 @@ export default class HomeStack extends Component {
               <Text style={styles.headercolor}>记账本</Text>
             </View>
             <View style={styles.classification}>
-              <View style={styles.classgroup}>
-                <Text style={styles.classtext}>全部类型</Text>
-                <View style={styles.line}></View>
-                <Image style={styles.classicon} source={class_icon} />
-              </View>
+              <TouchableHighlight
+                onPress={this.classPicker}
+                style={[
+                  {
+                    backgroundColor: 'transparent',
+                  },
+                ]}
+                underlayColor={'rgba(250, 250, 250, .1)'}>
+                <View style={styles.classgroup}>
+                  <Text style={styles.classtext}>全部类型</Text>
+                  <View style={styles.line}></View>
+                  <Image style={styles.classicon} source={class_icon} />
+                </View>
+              </TouchableHighlight>
             </View>
             <View style={styles.datetime}>
               <TouchableHighlight
@@ -113,6 +139,11 @@ export default class HomeStack extends Component {
             calendar={this.state.monthCalendarData}
             dateFlag={this.state.dataPickerFlag}
             closeMonthPicker={() => this.closeMonthPicker()}
+          />
+          <ClassPicker
+            classPickerVisible={this.state.classPickerShow}
+            classification={classification}
+            closeClassPicker={() => this.closeClassPicker()}
           />
           <View style={styles.card_wrapper}>
             <FlatList

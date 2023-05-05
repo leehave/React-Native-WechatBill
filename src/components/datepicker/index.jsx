@@ -1,5 +1,6 @@
 import {
   Image,
+  InteractionManager,
   ScrollView,
   StyleSheet,
   Text,
@@ -25,7 +26,26 @@ import {moneyFormat} from '~/utils/filters';
 export default class DateDayPicker extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      pickerHeight: 0,
+    };
+    this.curScrollView = React.createRef();
+  }
+  pickerLoyoutComputed = ({nativeEvent}) => {
+    const scrollY = nativeEvent?.layout?.height - (SCREEN_HEIGHT / 2);
+    this.setState(
+      {
+        pickerHeight: scrollY,
+      },
+      () => {
+        this.curScrollView.current.scrollTo({x: 0, y: scrollY, animated: true});
+      },
+    );
+  }
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      console.log('InteractionManager');
+    });
   }
   render() {
     const {datePickerVisible, dateFlag, calendar} = this.props;
@@ -54,7 +74,11 @@ export default class DateDayPicker extends Component {
               </TouchableHighlight>
             </View>
           </View>
-          <View style={[styles.date, {flex: 1, width: SCREEN_WIDTH, flexDirection: 'column'}]}>
+          <View
+            style={[
+              styles.date,
+              {flex: 1, width: SCREEN_WIDTH, flexDirection: 'column'},
+            ]}>
             <View style={styles.dateHd}>
               <View style={styles.dateWeek}>
                 <View style={styles.weekLi}>
@@ -80,69 +104,80 @@ export default class DateDayPicker extends Component {
                 </View>
               </View>
             </View>
-            <ScrollView style={styles.dateBd} alwaysBounceVertical>
-              {calendar.map((item, index) => {
-                return (
-                  <View style={[styles.timeList, styles.dateMod]} key={index}>
-                    <View style={styles.dateTitle}>
-                      <Text style={{fontSize: 14, color: '#000', opacity: 0.5}}>
-                        {item.year}年{item.month}月
-                      </Text>
-                    </View>
-                    <View
-                      style={[styles.dateMain, styles.dayMain, {
-                        flex: 1,
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                      }]}>
-                      {item.days.map((item2, idx) => {
-                        return item2.value ? (
-                          <View
-                            key={idx}
-                            style={[
-                              styles.dayRec,
-                              item2.future ? styles.dayRecDisable : null,
-                              dateFlag === item2.string
-                                ? styles.dayRecActive
-                                : null,
-                              {
-                                marginRight: (idx + 1) % 7 === 0 ? 0 : 10,
-                              },
-                            ]}>
-                            <Text
-                              style={[
-                                styles.dateButtonText,
-                                {
-                                  color: 'rgba(0,0,0,0.9)',
-                                },
-                                {
-                                  color:
-                                    dateFlag === item2.string
-                                      ? '#fff'
-                                      : item2.future
-                                    ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.9)',
-                                },
-                              ]}>
-                              {item2.value}
-                            </Text>
-                          </View>
-                        ) : (
-                          <View
-                            key={idx}
-                            style={[
-                              styles.dayRec,
-                              {
-                                marginRight: (idx + 1) % 7 === 0 ? 0 : 10,
-                                backgroundColor: 'transparent',
-                              },
-                            ]}></View>
-                        );
-                      })}
-                    </View>
-                  </View>
-                );
-              })}
+            <ScrollView
+              style={styles.dateBd}
+              alwaysBounceVertical
+              ref={this.curScrollView}
+              scrollEventThrottle={16}>
+                <View style={[{flex: 1}]} onLayout={this.pickerLoyoutComputed}>
+                  {calendar.map((item, index) => {
+                    return (
+                      <View style={[styles.timeList, styles.dateMod]} key={index}>
+                        <View style={styles.dateTitle}>
+                          <Text style={{fontSize: 14, color: '#000', opacity: 0.5}}>
+                            {item.year}年{item.month}月
+                          </Text>
+                        </View>
+                        <View
+                          style={[
+                            styles.dateMain,
+                            styles.dayMain,
+                            {
+                              flex: 1,
+                              alignItems: 'center',
+                              flexDirection: 'row',
+                              flexWrap: 'wrap',
+                            },
+                          ]}>
+                          {item.days.map((item2, idx) => {
+                            return item2.value ? (
+                              <View
+                                key={idx}
+                                style={[
+                                  styles.dayRec,
+                                  item2.future ? styles.dayRecDisable : null,
+                                  dateFlag === item2.string
+                                    ? styles.dayRecActive
+                                    : null,
+                                  {
+                                    marginRight: (idx + 1) % 7 === 0 ? 0 : 10,
+                                  },
+                                ]}>
+                                <Text
+                                  style={[
+                                    styles.dateButtonText,
+                                    {
+                                      color: 'rgba(0,0,0,0.9)',
+                                    },
+                                    {
+                                      color:
+                                        dateFlag === item2.string
+                                          ? '#fff'
+                                          : item2.future
+                                          ? 'rgba(0,0,0,0.3)'
+                                          : 'rgba(0,0,0,0.9)',
+                                    },
+                                  ]}>
+                                  {item2.value}
+                                </Text>
+                              </View>
+                            ) : (
+                              <View
+                                key={idx}
+                                style={[
+                                  styles.dayRec,
+                                  {
+                                    marginRight: (idx + 1) % 7 === 0 ? 0 : 10,
+                                    backgroundColor: 'transparent',
+                                  },
+                                ]}></View>
+                            );
+                          })}
+                        </View>
+                      </View>
+                    );
+                  })}
+                </View>
             </ScrollView>
           </View>
         </View>

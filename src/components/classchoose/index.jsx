@@ -13,7 +13,7 @@ import {
   SCREEN_WIDTH,
   STATUS_BAR_HEIGHT,
   STATUS_TABBAR_HEIGHT,
-  countcoordinatesX
+  countcoordinatesX,
 } from '~/utils/util';
 import React, {Component} from 'react';
 
@@ -23,37 +23,29 @@ import Provider from '~/components/provider';
 import {base} from '~/style/fonts';
 import {moneyFormat} from '~/utils/filters';
 
-export default class MonthPicker extends Component {
+export default class ClassPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pickerHeight: 0
+      selectedItemIdx: 0,
+      billType: 1,
     };
-    this.curScrollView = React.createRef();
-  }
-  pickerLoyoutComputed = ({nativeEvent}) => {
-    const scrollY = nativeEvent?.layout?.height;
-    this.setState({
-      pickerHeight: scrollY,
-    }, () => {
-        this.curScrollView.current.scrollTo({x: 0, y: scrollY, animated: true});
-      },
-    );
   }
   render() {
-    const {monthPickerVisible, dateFlag, calendar} = this.props;
+    const {classPickerVisible, classification} = this.props;
+    const {selectedItemIdx, billType} = this.state;
     return (
       <Modal
         maskClosable
-        visible={monthPickerVisible}
+        visible={classPickerVisible}
         animationType="slide-up"
         popup>
         <View style={styles.container}>
           <View style={styles.dateContent}>
             <View style={styles.contentTitle}>
-              <Text style={styles.titleName}>请选择月份</Text>
+              <Text style={styles.titleName}>请选择分类</Text>
               <TouchableHighlight
-                onPress={() => this.props.closeMonthPicker()}
+                onPress={() => this.props.closeClassPicker()}
                 style={[
                   {
                     backgroundColor: 'transparent',
@@ -68,57 +60,63 @@ export default class MonthPicker extends Component {
             </View>
           </View>
           <ScrollView
-            ref={this.curScrollView}
-            style={styles.dateContentMain}
+            style={[styles.dateContentMain, {paddingBottom: 60}]}
             alwaysBounceVertical
             scrollEventThrottle={16}>
-            <View style={[{flex: 1}]} onLayout={this.pickerLoyoutComputed}>
-              {calendar.map((item, index) => {
-                return (
-                  <View style={styles.timeList} key={index}>
-                    <View style={styles.dateTitle}>
-                      <Text style={{fontSize: 14, color: '#000', opacity: 0.5}}>
-                        {item.year}年
-                      </Text>
-                    </View>
+            <View style={[{flex: 1, paddingTop: 10, paddingBottom: 60}]}>
+              <View
+                style={[
+                  styles.selectButton,
+                  selectedItemIdx === 0 ? styles.selectButtonChoose : null,
+                ]}>
+                <Text
+                  style={[
+                    styles.selectButtonText,
+                    {
+                      color: selectedItemIdx === 0 ? '#fff' : '#000',
+                    },
+                  ]}>
+                  全部类型
+                </Text>
+              </View>
+              <View style={styles.chooseTitle}>
+                <Text style={{fontSize: 14, color: '#999'}}>支出</Text>
+              </View>
+              <View style={[{flex: 1}, styles.selectRow]}>
+                {classification.outcomesArr.map((item, index) => {
+                  return (
                     <View
-                      style={{
-                        flex: 1,
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                      }}>
-                      {item.month.map((item2, idx) => {
-                        return !item2.future ? (
-                          <View
-                            key={idx}
-                            style={[
-                              dateFlag === item2.flag
-                                ? (styles.dateButton, styles.dateButtonChoose)
-                                : styles.dateButton,
-                            ]}>
-                            <Text
-                              style={[
-                                styles.dateButtonText,
-                                {
-                                  color: item2.future
-                                    ? 'rgba(0,0,0,0.2)'
-                                    : null,
-                                },
-                                {
-                                  color:
-                                    dateFlag === item2.flag ? '#fff' : null,
-                                },
-                              ]}>
-                              {item2.value}月
-                            </Text>
-                          </View>
-                        ) : null;
-                      })}
+                      style={[
+                        styles.selectButton,
+                        selectedItemIdx === item.id && billType == 1
+                          ? styles.selectButtonChoose
+                          : null,
+                      ]}
+                      key={index}>
+                      <Text style={[styles.selectButtonText]}>{item.name}</Text>
                     </View>
-                  </View>
-                );
-              })}
+                  );
+                })}
+              </View>
+              <View style={styles.chooseTitle}>
+                <Text style={{fontSize: 14, color: '#999'}}>收入</Text>
+              </View>
+              <View style={[{flex: 1}, styles.selectRow]}>
+                {classification.incomesArr.map((item, index) => {
+                  return (
+                    <View
+                      style={[
+                        styles.selectButton,
+                        selectedItemIdx === item.id && billType == 1
+                          ? styles.selectButtonChoose
+                          : null,
+                      ]}
+                      key={index}>
+                      <Text style={[styles.selectButtonText]}>{item.name}</Text>
+                    </View>
+                  );
+                })}
+              </View>
             </View>
           </ScrollView>
         </View>
@@ -199,6 +197,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#3eb575',
     color: '#fff',
   },
+  selectButtonChoose: {
+    backgroundColor: '#3eb575',
+    color: '#fff',
+  },
   close: {
     width: 24,
     height: 24,
@@ -210,5 +212,31 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     textAlign: 'center',
+  },
+  chooseTitle: {
+    paddingBottom: 10,
+    paddingLeft: 10,
+  },
+  selectRow: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingRight: 10,
+    // alignItems: 'center',
+  },
+  selectButton: {
+    backgroundColor: '#fff',
+    borderRadius: 4,
+    color: 'rgba(0,0,0,.9)',
+    width: countcoordinatesX(224),
+    height: 54,
+    marginLeft: 10,
+    marginBottom: 10,
+  },
+  selectButtonText: {
+    fontSize: 18,
+    color: '#000',
+    textAlign: 'center',
+    lineHeight: 54,
   },
 });
