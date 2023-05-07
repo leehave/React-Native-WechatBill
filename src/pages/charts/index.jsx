@@ -25,7 +25,7 @@ export default class ProfileSettings extends Component {
             <View style={styles.monthHeader}>
               <View style={styles.choosemonTh}>
                 <View style={styles.month}>
-                  <Text style={styles.monthText}>2023年4月</Text>
+                  <Text style={styles.monthText}>2023年5月</Text>
                   <Image
                     style={styles.calendar}
                     source={IconManager.icon_calendar2}></Image>

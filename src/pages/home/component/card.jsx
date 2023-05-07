@@ -26,8 +26,8 @@ function CardItem() {
     <View style={styles.card}>
       <View style={styles.cell_title}>
         <View style={styles.name}>
-          <Text style={styles.days}>4月18日</Text>
-          <Text>今天</Text>  
+          <Text style={styles.days}>5月1日</Text>
+          {/* <Text>今天</Text>   */}
         </View>
         <View style={styles.right_value}>
           <View style={styles.amount_item}>

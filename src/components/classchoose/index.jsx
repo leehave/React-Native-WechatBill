@@ -6,22 +6,15 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import React, {Component} from 'react';
 import {
-  NAVIGATION_HEIGHT,
-  SAFE_AREA_BOTTOM_HEIGHT,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
-  STATUS_BAR_HEIGHT,
-  STATUS_TABBAR_HEIGHT,
   countcoordinatesX,
 } from '~/utils/util';
-import React, {Component} from 'react';
 
 import {IconManager} from '~/assets/json/iconManager';
 import Modal from '~/components/modal/index';
-import Provider from '~/components/provider';
-import {base} from '~/style/fonts';
-import {moneyFormat} from '~/utils/filters';
 
 export default class ClassPicker extends Component {
   constructor(props) {
@@ -40,7 +33,7 @@ export default class ClassPicker extends Component {
         visible={classPickerVisible}
         animationType="slide-up"
         popup>
-        <View style={styles.container}>
+        <View style={[styles.container, {paddingBottom: 60}]}>
           <View style={styles.dateContent}>
             <View style={styles.contentTitle}>
               <Text style={styles.titleName}>请选择分类</Text>

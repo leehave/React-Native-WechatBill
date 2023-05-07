@@ -95,12 +95,10 @@ export default class HomeStack extends Component {
               <TouchableHighlight
                 onPress={this.classPicker}
                 style={[
-                  {
-                    backgroundColor: 'transparent',
-                  },
+                  styles.classgroup,
                 ]}
                 underlayColor={'rgba(250, 250, 250, .1)'}>
-                <View style={styles.classgroup}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
                   <Text style={styles.classtext}>全部类型</Text>
                   <View style={styles.line}></View>
                   <Image style={styles.classicon} source={class_icon} />
@@ -117,7 +115,7 @@ export default class HomeStack extends Component {
                 ]}
                 underlayColor={'rgba(250, 250, 250, .1)'}>
                 <View style={styles.monthdesc}>
-                  <Text style={styles.timetext}>2023年4月</Text>
+                  <Text style={styles.timetext}>2023年5月</Text>
                   <Image
                     style={styles.arrow}
                     source={IconManager.icon_dowm_arrow}
@@ -234,7 +232,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   classgroup: {
-    width: 106,
+    width: countcoordinatesX(200),
     paddingTop: 10,
     paddingLeft: 10,
     paddingBottom: 10,

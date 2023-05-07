@@ -1,6 +1,7 @@
 import {
   Animated,
   Button,
+  Easing,
   Image,
   ScrollView,
   StyleSheet,
@@ -167,12 +168,24 @@ export default class Profile extends Component {
       }${currentDay < 10 ? '0' + currentDay : currentDay}`,
       navigationIndex: 0,
       models: [[], []],
+      currentId: 1,
       ifShowCursor: false,
       datePickerShow: false,
       calendar: [],
       calendarTime: startCalendarTime,
       dateCalendarData: dayCalendarData,
+      opacity: new Animated.Value(0),
     };
+  }
+  componentDidMount() {
+     Animated.loop(Animated.timing(this.state.opacity, {
+      toValue: 1,
+      duration:2000,
+      easing: Easing.linear,
+      delay:300,
+      useNativeDriver:true, // 启用原生动画驱动
+      isInteraction: false
+    })).start()
   }
   monthPicker = () => {
     this.setState({
@@ -187,6 +200,7 @@ export default class Profile extends Component {
   render() {
     console.log(this.props.route, 'render props');
     const {params} = this.props.route;
+    const { currentId } = this.state;
     return (
       <Provider>
         <View style={styles.container}>
@@ -219,7 +233,7 @@ export default class Profile extends Component {
               underlayColor={'rgba(250, 250, 250, .1)'}>
               <View style={styles.controlRight}>
                 <View style={styles.datePicker}>
-                  <Text>4月18日</Text>
+                  <Text>5月7日</Text>
                   <Image
                     source={IconManager.icon_dowm_arrow}
                     style={{width: 12, height: 6, marginLeft: 6}}
@@ -234,16 +248,25 @@ export default class Profile extends Component {
             </View>
             <View style={styles.noteCenterMoney}>
               <Text style={styles.noteMoney}>100</Text>
-              <Animated.View style={styles.cursor}></Animated.View>
+              <Animated.View
+                style={[
+                  styles.cursor,
+                  {
+                    opacity: this.state.opacity.interpolate({
+                      inputRange: [0, 0.5, 1],
+                      outputRange: [0, 1, 0],
+                    }),
+                  },
+                ]}></Animated.View>
             </View>
           </View>
           <View style={styles.gridIconScroll}>
             <ScrollView style={styles.scrollView} ref="flatGrid">
               <SimpleGrid
-                itemDimension={countcoordinatesX(100)}
+                itemDimension={50}
                 data={MockData}
                 staticDimension={SCREEN_WIDTH}
-                spacing={5}
+                spacing={10}
                 renderItem={({item, id}) => (
                   <TouchableHighlight
                     key={id}
@@ -258,10 +281,20 @@ export default class Profile extends Component {
                     onPress={() => {}}>
                     <View style={styles.classIcon}>
                       <Image
-                        source={item.icon_url_normal}
+                        source={
+                          currentId === item.id
+                            ? item.icon_url_normal
+                            : item.icon_grey_url
+                        }
                         style={{width: 30, height: 30, marginBottom: 6}}
                       />
-                      <Text style={styles.gridText}>{item.name}</Text>
+                      <Text
+                        style={[
+                          styles.gridText,
+                          {opacity: currentId === item.id ? 1 : 0.5},
+                        ]}>
+                        {item.name}
+                      </Text>
                     </View>
                   </TouchableHighlight>
                 )}
@@ -363,7 +396,7 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 4,
     borderRightWidth: 1,
-    borderRightColor: '#E4E4E4',
+    borderRightColor: '#999',
   },
   noteCenterIcon: {
     display: 'flex',
@@ -412,7 +445,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // paddingLeft: 5,
     // paddingRight: 5,
-    maxHeight: countcoordinatesX(240),
+    maxHeight: countcoordinatesX(260),
   },
   gridIconScroll: {
     flex: 1,
