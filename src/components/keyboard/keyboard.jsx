@@ -386,13 +386,26 @@ export default class KeyBoardButton extends React.Component {
                     style={[
                       _styles.singleBtn,
                       {
-                        backgroundColor: '#A8D6B9',
-                        borderBottomColor: '#A8D6B9',
-                        borderRightColor: '#A8D6B9',
+                        backgroundColor:
+                          this.props.currentAtive === 'incomes'
+                            ? '#F0D9A1'
+                            : '#A8D6B9',
+                        borderBottomColor:
+                          this.props.currentAtive === 'incomes'
+                            ? '#F0D9A1'
+                            : '#A8D6B9',
+                        borderRightColor:
+                          this.props.currentAtive === 'incomes'
+                            ? '#F0D9A1'
+                            : '#A8D6B9',
                         flex: 2,
                       },
                     ]}
-                    underlayColor={'#63b27b'}>
+                    underlayColor={
+                      this.props.currentAtive === 'incomes'
+                        ? '#E6B954'
+                        : '#63b27b'
+                    }>
                     <View style={_styles.view}>
                       <Text
                         style={[

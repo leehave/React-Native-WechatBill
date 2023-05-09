@@ -24,6 +24,7 @@ import {
 } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native'
+import Provider from '~/components/provider';
 import React from 'react';
 
 function Section({children, title}) {
@@ -61,16 +62,18 @@ function App() {
   };
 
   return (
-    <View style={backgroundStyle}>
-      {/* <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      /> */}
-      <NavigationContainer>
-        <NormalStackScreen></NormalStackScreen>
-        {/* <BottomTabNavigator></BottomTabNavigator> */}
-      </NavigationContainer>
-    </View>
+    <Provider>
+      <View style={backgroundStyle}>
+        {/* <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        /> */}
+        <NavigationContainer>
+          <NormalStackScreen></NormalStackScreen>
+          {/* <BottomTabNavigator></BottomTabNavigator> */}
+        </NavigationContainer>
+      </View>
+    </Provider>
   );
 }
 

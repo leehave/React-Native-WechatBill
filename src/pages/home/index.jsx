@@ -38,7 +38,8 @@ const DATA = [
 ];
 const DATE = new Date(),
   currentYear = DATE.getFullYear(),
-  currentMonth = DATE.getMonth() + 1;
+  currentMonth = DATE.getMonth() + 1,
+  currentDay = DATE.getDate();
 const startCalendarTime = 1588262400;
 const monthCalendarData = setMonthCalendarList(startCalendarTime);
 export default class HomeStack extends Component {
@@ -53,6 +54,9 @@ export default class HomeStack extends Component {
       calendarTime: startCalendarTime,
       monthCalendarData: monthCalendarData,
       classPickerShow: false,
+      currentYear: currentYear,
+      currentMonth: currentMonth,
+      currentDay: currentDay,
     };
   }
   monthPicker = () => {
@@ -83,8 +87,8 @@ export default class HomeStack extends Component {
         </View>
       );
     };
+    const { currentYear, currentMonth, currentDay } = this.state;
     return (
-      <Provider>
         <View style={styles.container}>
           <StatusBar hidden={true} />
           <View style={styles.customheader}>
@@ -94,9 +98,7 @@ export default class HomeStack extends Component {
             <View style={styles.classification}>
               <TouchableHighlight
                 onPress={this.classPicker}
-                style={[
-                  styles.classgroup,
-                ]}
+                style={[styles.classgroup]}
                 underlayColor={'rgba(250, 250, 250, .1)'}>
                 <View style={{flex: 1, flexDirection: 'row'}}>
                   <Text style={styles.classtext}>全部类型</Text>
@@ -115,7 +117,7 @@ export default class HomeStack extends Component {
                 ]}
                 underlayColor={'rgba(250, 250, 250, .1)'}>
                 <View style={styles.monthdesc}>
-                  <Text style={styles.timetext}>2023年5月</Text>
+                  <Text style={styles.timetext}>{currentYear}年{currentMonth}月</Text>
                   <Image
                     style={styles.arrow}
                     source={IconManager.icon_dowm_arrow}
@@ -161,7 +163,6 @@ export default class HomeStack extends Component {
               },
             ]}></View>
         </View>
-      </Provider>
     );
   }
 }

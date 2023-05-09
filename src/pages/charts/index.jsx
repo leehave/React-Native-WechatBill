@@ -1,35 +1,83 @@
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import React, {Component} from 'react';
 
 import ChartPie from './component/pie';
 import {IconManager} from '~/assets/json/iconManager';
 import MonthCompairBar from './component/bar';
 import MonthDayPillar from './component/pillars';
+import MonthPicker from '~/components/monthpicker/index';
 import RankCellList from './component/rank';
 import { SCREEN_WIDTH } from '~/utils/util';
 import {base} from '~/style/fonts';
+import {setMonthCalendarList} from '~/utils/date';
 
+const DATE = new Date(),
+  currentYear = DATE.getFullYear(),
+  currentMonth = DATE.getMonth() + 1,
+  currentDay = DATE.getDate();
+const startCalendarTime = 1588262400;
+const monthCalendarData = setMonthCalendarList(startCalendarTime);
 export default class ProfileSettings extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      monthCalendarData: monthCalendarData,
       fontsLoaded: false,
+      currentYear: currentYear,
+      currentMonth: currentMonth,
+      currentDay: currentDay,
+      monthPickerShow: false,
+      dataPickerFlag: `${currentYear}${
+        currentMonth < 10 ? '0' + currentMonth : currentMonth
+      }`,
     };
   }
 
+  monthPicker = () => {
+    this.setState({
+      monthPickerShow: true,
+    });
+  };
+
+  closeMonthPicker = () => {
+    this.setState({
+      monthPickerShow: false,
+    });
+  };
+
   render() {
+    const {currentYear, currentMonth, currentDay} = this.state;
     return (
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.customheader}>
             <View style={styles.monthHeader}>
               <View style={styles.choosemonTh}>
-                <View style={styles.month}>
-                  <Text style={styles.monthText}>2023年5月</Text>
-                  <Image
-                    style={styles.calendar}
-                    source={IconManager.icon_calendar2}></Image>
-                </View>
+                <TouchableHighlight
+                  onPress={this.monthPicker}
+                  style={[
+                    styles.month,
+                    {
+                      backgroundColor: 'transparent',
+                    },
+                  ]}
+                  underlayColor={'rgba(250, 250, 250, .1)'}>
+                  <View style={[{  flexDirection: 'row', alignItems: 'center' }]}>
+                    <Text style={styles.monthText}>
+                      {currentYear}年{currentMonth}月
+                    </Text>
+                    <Image
+                      style={styles.calendar}
+                      source={IconManager.icon_calendar2}></Image>
+                  </View>
+                </TouchableHighlight>
               </View>
               <View style={styles.rightTab}>
                 <View style={[styles.tabItem, {backgroundColor: '#70BA87'}]}>
@@ -66,6 +114,12 @@ export default class ProfileSettings extends Component {
           </View>
           <MonthCompairBar />
         </ScrollView>
+        <MonthPicker
+          monthPickerVisible={this.state.monthPickerShow}
+          calendar={this.state.monthCalendarData}
+          dateFlag={this.state.dataPickerFlag}
+          closeMonthPicker={() => this.closeMonthPicker()}
+        />
       </View>
     );
   }

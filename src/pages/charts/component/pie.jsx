@@ -124,9 +124,9 @@ export default class ChatPie extends Component {
               },
             },
             labelLine: {
-              length: 24,
+              length: 12,
               length2: 6,
-              maxSurfaceAngle: 80,
+              maxSurfaceAngle: 40,
               lineStyle: {
                 color: 'rgba(0,0,0,0.1)',
               },
@@ -160,8 +160,8 @@ export default class ChatPie extends Component {
     if (this.skiaRef.current) {
       this.chart = echarts.init(this.skiaRef.current, 'light', {
         renderer: 'svg',
-        width: 320,
-        height: 320,
+        width: 400,
+        height: 400,
       });
       this.chart.setOption(this.state.option);
     }
