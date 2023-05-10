@@ -22,17 +22,21 @@ import {IconManager} from '~/assets/json/iconManager';
 import Modal from '~/components/modal/index';
 import {base} from '~/style/fonts';
 import {moneyFormat} from '~/utils/filters';
+import {setDayCalendarList} from '~/utils/date';
+
+// import ActivityIndicator from '~/'
 
 export default class DateDayPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
       pickerHeight: 0,
+      calendar: [],
     };
     this.curScrollView = React.createRef();
   }
   pickerLoyoutComputed = ({nativeEvent}) => {
-    const scrollY = nativeEvent?.layout?.height - (SCREEN_HEIGHT / 2);
+    const scrollY = nativeEvent?.layout?.height - SCREEN_HEIGHT / 2;
     this.setState(
       {
         pickerHeight: scrollY,
@@ -41,9 +45,12 @@ export default class DateDayPicker extends Component {
         this.curScrollView.current.scrollTo({x: 0, y: scrollY, animated: true});
       },
     );
-  }
+  };
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
+      this.setState({
+        calendar: setDayCalendarList(this.props.startCalendarTime),
+      });
       console.log('InteractionManager');
     });
   }
@@ -109,12 +116,16 @@ export default class DateDayPicker extends Component {
               alwaysBounceVertical
               ref={this.curScrollView}
               scrollEventThrottle={16}>
-                <View style={[{flex: 1}]} onLayout={this.pickerLoyoutComputed}>
-                  {calendar.map((item, index) => {
+              <View style={[{flex: 1}]} onLayout={this.pickerLoyoutComputed}>
+                {this.state.calendar.length ? (
+                  this.state.calendar.map((item, index) => {
                     return (
-                      <View style={[styles.timeList, styles.dateMod]} key={index}>
+                      <View
+                        style={[styles.timeList, styles.dateMod]}
+                        key={index}>
                         <View style={styles.dateTitle}>
-                          <Text style={{fontSize: 14, color: '#000', opacity: 0.5}}>
+                          <Text
+                            style={{fontSize: 14, color: '#000', opacity: 0.5}}>
                             {item.year}年{item.month}月
                           </Text>
                         </View>
@@ -176,8 +187,13 @@ export default class DateDayPicker extends Component {
                         </View>
                       </View>
                     );
-                  })}
-                </View>
+                  })
+                ) : (
+                  <View>
+                    <Text>加载中...</Text>
+                  </View>
+                )}
+              </View>
             </ScrollView>
           </View>
         </View>

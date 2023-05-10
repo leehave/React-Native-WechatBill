@@ -31,7 +31,6 @@ const DATE = new Date(),
   currentMonth = DATE.getMonth() + 1,
   currentDay = DATE.getDate();
 const startCalendarTime = 1588262400;
-const dayCalendarData = setDayCalendarList(startCalendarTime);
 const outgoingsArr = classification_list.filter(
         item => item.bill_type === 1,
       );
@@ -52,7 +51,6 @@ export default class Profile extends Component {
       datePickerShow: false,
       calendar: [],
       calendarTime: startCalendarTime,
-      dateCalendarData: dayCalendarData,
       opacity: new Animated.Value(0),
       currentMonth: currentMonth,
       currentDay: currentDay,
@@ -244,7 +242,9 @@ export default class Profile extends Component {
                         source={{
                           uri:
                             currentId === item.id
-                              ? currentAtive === 'incomes' ? item.icon_url_income : item.icon_url_out
+                              ? currentAtive === 'incomes'
+                                ? item.icon_url_income
+                                : item.icon_url_out
                               : item.icon_grey_url,
                         }}
                         style={{width: 30, height: 30, marginBottom: 6}}
@@ -274,7 +274,7 @@ export default class Profile extends Component {
           </View>
           <DateDayPicker
             datePickerVisible={this.state.datePickerShow}
-            calendar={this.state.dateCalendarData}
+            startCalendarTime={this.state.calendarTime}
             dateFlag={this.state.dataPickerFlag}
             closeMonthPicker={() => this.closeMonthPicker()}
           />
